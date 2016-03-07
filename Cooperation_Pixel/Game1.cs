@@ -27,7 +27,7 @@ namespace Cooperation_Pixel
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            Background = new Rectangle(0, 0, Window.ClientBounds.Width, Window.ClientBounds.Height);
+            Background = new Rectangle(0, 0, Window.ClientBounds.Width+200, Window.ClientBounds.Height);
             jogador = new Rectangle(humano.x, humano.y, 50, 40);
 
 
@@ -40,8 +40,8 @@ namespace Cooperation_Pixel
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            Background_img = Content.Load<Texture2D>("img_pixel");
-            jogador_img = Content.Load<Texture2D>("norton");
+            Background_img = Content.Load<Texture2D>("img");
+            jogador_img = Content.Load<Texture2D>("sprite_viking2");
         }
 
         protected override void UnloadContent()
@@ -86,7 +86,7 @@ namespace Cooperation_Pixel
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 
-            spriteBatch.Draw(Background_img, Background, Color.White);
+            spriteBatch.Draw(Background_img, Background, Color.Gray);
             spriteBatch.Draw(jogador_img, humano.getVector(), Color.White);
 
             spriteBatch.End();
