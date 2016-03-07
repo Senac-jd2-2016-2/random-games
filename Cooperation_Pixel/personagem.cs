@@ -8,9 +8,6 @@ namespace Cooperation_Pixel
 {
     class personagem
     {
-        public int velocidade;
-        public float gravidade;
-        public string nome;
         public int x;
         public int y;
 

@@ -1,21 +1,23 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
-namespace Cooperation_Pixel
+namespace Oficina_2D
 {
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Texture2D Background_img;
-        Rectangle Background;
+        Texture2D Tpersonagem, Talien, Ttiles;
+        Rectangle personagem, alien;
+        Rectangle tiles, tiles1, tiles2;
+        bool mov, mov2;
 
-        Texture2D jogador_img;
-        Rectangle jogador;
-
-        private personagem humano = new personagem(150, 100);
+        //salto
+        float gravidade;
+        bool pulando;
 
 
         public Game1()
@@ -27,9 +29,16 @@ namespace Cooperation_Pixel
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            Background = new Rectangle(0, 0, Window.ClientBounds.Width+200, Window.ClientBounds.Height);
-            jogador = new Rectangle(humano.x, humano.y, 50, 40);
+            personagem = new Rectangle(80, 400, 80, 80);
+            alien = new Rectangle(0, 320, 80, 160);
+            //(x,y,largura,altura)
 
+            tiles = new Rectangle(400, 320, 400, 80);
+            tiles1 = new Rectangle(0, 159, 250, 80);
+            tiles2 = new Rectangle(600, 80, 200, 80);
+
+            mov = true;
+            mov2 = true;
 
             base.Initialize();
         }
@@ -40,44 +49,121 @@ namespace Cooperation_Pixel
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            Background_img = Content.Load<Texture2D>("img");
-            jogador_img = Content.Load<Texture2D>("sprite_viking2");
+            Tpersonagem = Content.Load<Texture2D>("humano");
+            Talien = Content.Load<Texture2D>("alien");
+            Ttiles = Content.Load<Texture2D>("tiles");
+
         }
+
 
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
         }
 
+
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            //recebendo  a gravidade
+            personagem.Y += (int)gravidade;
+
+            if ((personagem.Intersects(tiles)) || (personagem.Intersects(tiles1)) || (personagem.Intersects(tiles2)))
+            {
+                gravidade = -5;
+            }
+
 
             // TODO: Add your update logic here
-            Keys[] keys = Keyboard.GetState().GetPressedKeys();
-            foreach(Keys k in keys)
+
+            //movimentação do humano
+            if ((Keyboard.GetState().IsKeyDown(Keys.Left)) && (mov == true))
             {
-                if (k.Equals(Keys.Up) && (humano.y > 0))
+                if (personagem.X > 0)
                 {
-                    humano.moverY(-2);
+                    personagem.X -= 5;
                 }
-                if (k.Equals(Keys.Down) && (humano.y < Window.ClientBounds.Height-210))
+                if (personagem.X == 0)
                 {
-                    humano.moverY(2);
+                    personagem.X = 1;
                 }
-                if (k.Equals(Keys.Right) && (humano.x < Window.ClientBounds.Width-130))
+                if ((personagem.Intersects(tiles)) || (personagem.Intersects(tiles1)) || (personagem.Intersects(tiles2)))
                 {
-                    humano.moverX(2);
+                    mov = false;
+                    personagem.X += 5;
+                    if (mov == false)
+                        mov = true;
                 }
-                if (k.Equals(Keys.Left) && (humano.x >= 0))
+                else
+                    mov = true;
+            }
+            else if ((Keyboard.GetState().IsKeyDown(Keys.Right)) && (mov == true))
+            {
+                if (personagem.X < Window.ClientBounds.Width - 80)
                 {
-                    humano.moverX(-2);
+                    personagem.X += 5;
                 }
+                if ((personagem.Intersects(tiles)) || (personagem.Intersects(tiles1)) || (personagem.Intersects(tiles2)))
+                {
+                    mov = false;
+                    personagem.X -= 5;
+                    if (mov == false)
+                        mov = true;
+                }
+                else
+                    mov = true;
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && !pulando)
+            {
+                pulando = true;
+                gravidade = -20;
+            }
+            if (pulando)
+            {
+                gravidade++;
+            }
+            //movimentação do alien
+            if ((Keyboard.GetState().IsKeyDown(Keys.A)) && (mov2 == true))
+            {
+                if (alien.X > 0)
+                {
+                    alien.X -= 5;
+                }
+                if (alien.X == 0)
+                {
+                    alien.X = 1;
+                }
+                if ((alien.Intersects(tiles)) || (alien.Intersects(tiles1)) || (alien.Intersects(tiles2)))
+                {
+                    mov2 = false;
+                    alien.X += 5;
+                    if (mov2 == false)
+                        mov2 = true;
+                }
+                else
+                    mov2 = true;
+            }
+            if ((Keyboard.GetState().IsKeyDown(Keys.D)) && (mov2 == true))
+            {
+                if (alien.X < Window.ClientBounds.Width - 40)
+                {
+                    alien.X += 5;
+                }
+                if ((alien.Intersects(tiles)) || (alien.Intersects(tiles1)) || (alien.Intersects(tiles2)))
+                {
+                    mov2 = false;
+                    alien.X -= 5;
+                    if (mov2 == false)
+                        mov2 = true;
+                }
+                else
+                    mov2 = true;
             }
 
             base.Update(gameTime);
         }
+
 
         protected override void Draw(GameTime gameTime)
         {
@@ -86,11 +172,14 @@ namespace Cooperation_Pixel
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 
-            spriteBatch.Draw(Background_img, Background, Color.Gray);
-            spriteBatch.Draw(jogador_img, humano.getVector(), Color.White);
+            spriteBatch.Draw(Ttiles, tiles, Color.White);
+            spriteBatch.Draw(Ttiles, tiles1, Color.White);
+            spriteBatch.Draw(Ttiles, tiles2, Color.White);
+
+            spriteBatch.Draw(Tpersonagem, personagem, Color.White);
+            spriteBatch.Draw(Talien, alien, Color.White);
 
             spriteBatch.End();
-
 
             base.Draw(gameTime);
         }

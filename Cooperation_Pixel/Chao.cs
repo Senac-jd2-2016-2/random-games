@@ -9,5 +9,6 @@ namespace Cooperation_Pixel
     {
         public int x, y;
         public int tamanho;
+
     }
 }
