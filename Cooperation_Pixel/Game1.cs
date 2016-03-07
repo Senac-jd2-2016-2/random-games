@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 
-namespace Oficina_2D
+namespace Cooperation_Pixel
 {
     public class Game1 : Game
     {
