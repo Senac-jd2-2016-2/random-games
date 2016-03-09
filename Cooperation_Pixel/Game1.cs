@@ -32,7 +32,6 @@ namespace Cooperation_Pixel
             personagem = new Rectangle(80, 400, 80, 80);
             alien = new Rectangle(0, 320, 80, 160);
             //(x,y,largura,altura)
-
             tiles = new Rectangle(400, 320, 400, 80);
             tiles1 = new Rectangle(0, 159, 250, 80);
             tiles2 = new Rectangle(600, 80, 200, 80);
@@ -49,8 +48,8 @@ namespace Cooperation_Pixel
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            Tpersonagem = Content.Load<Texture2D>("humano");
-            Talien = Content.Load<Texture2D>("alien");
+            Tpersonagem = Content.Load<Texture2D>("Anao");
+            Talien = Content.Load<Texture2D>("Viking");
             Ttiles = Content.Load<Texture2D>("tiles");
 
         }
