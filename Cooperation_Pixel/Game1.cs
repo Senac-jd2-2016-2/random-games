@@ -68,9 +68,11 @@ namespace Cooperation_Pixel
             //recebendo  a gravidade
             personagem.Y += (int)gravidade;
 
-            if ((personagem.Intersects(tiles)) || (personagem.Intersects(tiles1)) || (personagem.Intersects(tiles2)))
+            while ((personagem.Intersects(tiles)) || (personagem.Intersects(tiles1)) || (personagem.Intersects(tiles2)) || (personagem.Y > Window.ClientBounds.Height-80))
             {
-                gravidade = -5;
+                gravidade --;
+                personagem.Y--;
+                pulando = false;
             }
 
 
@@ -113,6 +115,7 @@ namespace Cooperation_Pixel
                 else
                     mov = true;
             }
+            //sallto
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && !pulando)
             {
                 pulando = true;
