@@ -10,10 +10,10 @@ namespace Cooperation_Pixel
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Texture2D Tpersonagem, Talien, Ttiles;
-        Rectangle personagem, alien;
-        Rectangle tiles, tiles1, tiles2;
+        Texture2D Tpersonagem, Talien, Ttiles, Tbackground;
+        Rectangle anao, viking, backgorund;
         bool mov, mov2;
+        Rectangle[] tiles, tiles1, tiles2;
 
         //salto
         float gravidade;
@@ -29,12 +29,25 @@ namespace Cooperation_Pixel
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            personagem = new Rectangle(80, 400, 80, 80);
-            alien = new Rectangle(0, 320, 80, 160);
+            anao = new Rectangle(80, 400, 80, 80);
+            viking = new Rectangle(0, 320, 80, 160);
+            backgorund = new Rectangle(0, 0, Window.ClientBounds.Width+200, Window.ClientBounds.Height+100);
             //(x,y,largura,altura)
-            tiles = new Rectangle(400, 320, 400, 80);
-            tiles1 = new Rectangle(0, 159, 250, 80);
-            tiles2 = new Rectangle(600, 80, 200, 80);
+            tiles = new Rectangle[10];
+            for (int i = 0; i < tiles.Length; i++)
+            {
+                tiles[i] = new Rectangle(400+(i*100), 320, 100, 80);//Iniciando os vetores do piso inferior multiplicando sua posição X para que não sejam desenhados na mesma posição e sim um na frente do outro
+            }
+            tiles1 = new Rectangle[3];
+            for (int i = 0; i < tiles1.Length; i++)
+            {
+                tiles1[i] = new Rectangle(0 + (i * 100), 159, 100, 80);
+            }
+            tiles2 = new Rectangle[3];
+            for (int i = 0; i < tiles1.Length; i++)
+            {
+                tiles2[i] = new Rectangle(600 + (i * 100), 80, 100, 80);
+            }
 
             mov = true;
             mov2 = true;
@@ -50,7 +63,8 @@ namespace Cooperation_Pixel
             // TODO: use this.Content to load your game content here
             Tpersonagem = Content.Load<Texture2D>("Anao");
             Talien = Content.Load<Texture2D>("Viking");
-            Ttiles = Content.Load<Texture2D>("tiles");
+            Ttiles = Content.Load<Texture2D>("tile");
+            Tbackground = Content.Load<Texture2D>("background");
 
         }
 
@@ -66,57 +80,66 @@ namespace Cooperation_Pixel
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             //recebendo  a gravidade
-            personagem.Y += (int)gravidade;
-
-            while ((personagem.Intersects(tiles)) || (personagem.Intersects(tiles1)) || (personagem.Intersects(tiles2)) || (personagem.Y > Window.ClientBounds.Height-80))
+            anao.Y += (int)gravidade;
+            for (int i = 0; i < tiles1.Length; i++)
             {
-                gravidade --;
-                personagem.Y--;
-                pulando = false;
+                while ((anao.Intersects(tiles[i])) || (anao.Intersects(tiles1[i])) || (anao.Intersects(tiles2[i])) || (anao.Y > Window.ClientBounds.Height - 80))
+                {
+                    gravidade--;
+                    anao.Y--;
+                    pulando = false;
+                } 
             }
+
 
 
             // TODO: Add your update logic here
 
-            //movimentação do humano
+            //movimentação do Anão
             if ((Keyboard.GetState().IsKeyDown(Keys.Left)) && (mov == true))
             {
-                if (personagem.X > 0)
+                if (anao.X > 0)
                 {
-                    personagem.X -= 5;
+                    anao.X -= 5;
                 }
-                if (personagem.X == 0)
+                if (anao.X == 0)
                 {
-                    personagem.X = 1;
+                    anao.X = 1;
                 }
-                if ((personagem.Intersects(tiles)) || (personagem.Intersects(tiles1)) || (personagem.Intersects(tiles2)))
+                for (int i = 0; i < tiles1.Length; i++)
                 {
-                    mov = false;
-                    personagem.X += 5;
-                    if (mov == false)
+                    if ((anao.Intersects(tiles[i])) || (anao.Intersects(tiles1[i])) || (anao.Intersects(tiles2[i])))
+                    {
+                        mov = false;
+                        anao.X += 5;
+                        if (mov == false)
+                            mov = true;
+                    }
+                    else
                         mov = true;
                 }
-                else
-                    mov = true;
             }
             else if ((Keyboard.GetState().IsKeyDown(Keys.Right)) && (mov == true))
             {
-                if (personagem.X < Window.ClientBounds.Width - 80)
+                for (int i = 0; i < tiles1.Length; i++)
                 {
-                    personagem.X += 5;
-                }
-                if ((personagem.Intersects(tiles)) || (personagem.Intersects(tiles1)) || (personagem.Intersects(tiles2)))
-                {
-                    mov = false;
-                    personagem.X -= 5;
-                    if (mov == false)
+                    if (anao.X < Window.ClientBounds.Width - 80)
+                    {
+                        anao.X += 2;
+                    }
+                    if ((anao.Intersects(tiles[i])) || (anao.Intersects(tiles1[i])) || (anao.Intersects(tiles2[i])))
+                    {
+                        mov = false;
+                        anao.X -= 5;
+                        if (mov == false)
+                            mov = true;
+                    }
+                    else
                         mov = true;
                 }
-                else
-                    mov = true;
             }
-            //sallto
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && !pulando)
+            //salto
+            if (Keyboard.GetState().IsKeyDown(Keys.Up) && !pulando)
             {
                 pulando = true;
                 gravidade = -20;
@@ -125,42 +148,48 @@ namespace Cooperation_Pixel
             {
                 gravidade++;
             }
-            //movimentação do alien
+            //movimentação do Viking
             if ((Keyboard.GetState().IsKeyDown(Keys.A)) && (mov2 == true))
             {
-                if (alien.X > 0)
+                if (viking.X > 0)
                 {
-                    alien.X -= 5;
+                    viking.X -= 5;
                 }
-                if (alien.X == 0)
+                if (viking.X == 0)
                 {
-                    alien.X = 1;
+                    viking.X = 1;
                 }
-                if ((alien.Intersects(tiles)) || (alien.Intersects(tiles1)) || (alien.Intersects(tiles2)))
+                for (int i = 0; i < tiles.Length; i++)
                 {
-                    mov2 = false;
-                    alien.X += 5;
-                    if (mov2 == false)
+                    if ((viking.Intersects(tiles[i])) || (viking.Intersects(tiles1[i])) || (viking.Intersects(tiles2[i])))
+                    {
+                        mov2 = false;
+                        viking.X += 5;
+                        if (mov2 == false)
+                            mov2 = true;
+                    }
+                    else
                         mov2 = true;
                 }
-                else
-                    mov2 = true;
             }
             if ((Keyboard.GetState().IsKeyDown(Keys.D)) && (mov2 == true))
             {
-                if (alien.X < Window.ClientBounds.Width - 40)
+                if (viking.X < Window.ClientBounds.Width - 40)
                 {
-                    alien.X += 5;
+                    viking.X += 5;
                 }
-                if ((alien.Intersects(tiles)) || (alien.Intersects(tiles1)) || (alien.Intersects(tiles2)))
+                for (int i = 0; i < tiles1.Length; i++)
                 {
-                    mov2 = false;
-                    alien.X -= 5;
-                    if (mov2 == false)
+                    if ((viking.Intersects(tiles[i])) || (viking.Intersects(tiles1[i])) || (viking.Intersects(tiles2[i])))
+                    {
+                        mov2 = false;
+                        viking.X -= 5;
+                        if (mov2 == false)
+                            mov2 = true;
+                    }
+                    else
                         mov2 = true;
                 }
-                else
-                    mov2 = true;
             }
 
             base.Update(gameTime);
@@ -173,13 +202,22 @@ namespace Cooperation_Pixel
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+            //spriteBatch.Draw(Tbackground, backgorund, Color.DarkGray);
+            for (int i = 0; i < tiles.Length; i++)
+            {
+                spriteBatch.Draw(Ttiles, tiles[i], Color.White);
+            }
+            for (int i = 0; i < tiles1.Length; i++)
+            {
+                spriteBatch.Draw(Ttiles, tiles1[i], Color.White);
+            }
+            for (int i = 0; i < tiles1.Length; i++)
+            {
+                spriteBatch.Draw(Ttiles, tiles2[i], Color.White);
+            }
 
-            spriteBatch.Draw(Ttiles, tiles, Color.White);
-            spriteBatch.Draw(Ttiles, tiles1, Color.White);
-            spriteBatch.Draw(Ttiles, tiles2, Color.White);
-
-            spriteBatch.Draw(Tpersonagem, personagem, Color.White);
-            spriteBatch.Draw(Talien, alien, Color.White);
+            spriteBatch.Draw(Tpersonagem, anao, Color.White);
+            spriteBatch.Draw(Talien, viking, Color.White);
 
             spriteBatch.End();
 
