@@ -30,7 +30,7 @@ namespace Cooperation_Pixel
         {
             // TODO: Add your initialization logic here
             anao = new Rectangle(80, 400, 80, 80);
-            viking = new Rectangle(0, 320, 80, 160);
+            viking = new Rectangle(400, 0, 80, 159);
             backgorund = new Rectangle(0, 0, Window.ClientBounds.Width+200, Window.ClientBounds.Height+100);
             //(x,y,largura,altura)
             tiles = new Rectangle[10];
@@ -161,7 +161,19 @@ namespace Cooperation_Pixel
                 }
                 for (int i = 0; i < tiles.Length; i++)
                 {
-                    if ((viking.Intersects(tiles[i])) || (viking.Intersects(tiles1[i])) || (viking.Intersects(tiles2[i])))
+                    if ((viking.Intersects(tiles[i])))
+                    {
+                        mov2 = false;
+                        viking.X += 5;
+                        if (mov2 == false)
+                            mov2 = true;
+                    }
+                    else
+                        mov2 = true;
+                }
+                for (int i = 0; i < tiles1.Length; i++)
+                {
+                    if ((viking.Intersects(tiles1[i])) || (viking.Intersects(tiles2[i])))
                     {
                         mov2 = false;
                         viking.X += 5;
