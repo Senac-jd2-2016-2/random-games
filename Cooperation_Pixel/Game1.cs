@@ -28,10 +28,14 @@ namespace Cooperation_Pixel
 
         protected override void Initialize()
         {
+            graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
+            graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
+            graphics.IsFullScreen = true;
+            graphics.ApplyChanges();
             // TODO: Add your initialization logic here
             anao = new Rectangle(80, 400, 80, 80);
             viking = new Rectangle(400, 0, 80, 159);
-            backgorund = new Rectangle(0, 0, Window.ClientBounds.Width+200, Window.ClientBounds.Height+100);
+            backgorund = new Rectangle(0, 0, GraphicsDevice.DisplayMode.Width, GraphicsDevice.DisplayMode.Height);
             //(x,y,largura,altura)
             tiles = new Rectangle[10];
             for (int i = 0; i < tiles.Length; i++)
@@ -90,7 +94,6 @@ namespace Cooperation_Pixel
                     pulando = false;
                 } 
             }
-
 
 
             // TODO: Add your update logic here
@@ -214,7 +217,7 @@ namespace Cooperation_Pixel
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            //spriteBatch.Draw(Tbackground, backgorund, Color.DarkGray);
+            spriteBatch.Draw(Tbackground, backgorund, Color.DarkGray);
             for (int i = 0; i < tiles.Length; i++)
             {
                 spriteBatch.Draw(Ttiles, tiles[i], Color.White);
