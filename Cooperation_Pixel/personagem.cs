@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,20 +7,22 @@ using System.Text;
 
 namespace Cooperation_Pixel
 {
-    class personagem
+    class Personagem
     {
-        public int x;
-        public int y;
+        public int x, y, altura, largura;
+        public Texture2D texture;
 
-        public personagem(int x1, int y1)
+        public Personagem(int x1, int y1, int larg, int alt)
         {
             x = x1;
             y = y1;
+            altura = alt;
+            largura = larg;
         }
 
-        public Vector2 getVector()
+        public Rectangle GetRectangle()
         {
-            return new Vector2(x, y);
+            return new Rectangle(x, y,largura, altura);
         }
 
         public void moverX(int qtdPassos)
@@ -27,9 +30,6 @@ namespace Cooperation_Pixel
             x += qtdPassos;
         }
 
-        public void moverY(int qtdPassos)
-        {
-            y += qtdPassos;
-        }
+
     }
 }
