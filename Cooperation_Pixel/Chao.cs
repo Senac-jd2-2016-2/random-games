@@ -13,7 +13,7 @@ namespace Cooperation_Pixel
         public Texture2D Texture;
         public Rectangle Rectangle {get; protected set; }
 
-        public static ContentManager Content { get; protected set; }
+        public static ContentManager Content { protected get; set; }
 
         public void Drawn(SpriteBatch spriteBatch)
         {
@@ -25,7 +25,7 @@ namespace Cooperation_Pixel
     {
         public CollisionTiles(int i, Rectangle newRectangle)
         {
-            Texture = Content.Load<Texture2D>("tile"+i);
+            Texture = Content.Load<Texture2D>("tile");
             this.Rectangle = new Rectangle();
         }
     }

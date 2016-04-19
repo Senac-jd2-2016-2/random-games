@@ -38,6 +38,7 @@ namespace Cooperation_Pixel
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
             Contexto.inicializar(Content);
+
             Chao.Content = Content;
 
             map.Generate(new int[,] {
@@ -89,12 +90,11 @@ namespace Cooperation_Pixel
             }
 
             //Mapa
-            player.Update(gameTime);
-            foreach (CollisionTiles tile in map.CollisionTile)
-            {
-                player.Collision(tile.Rectangle, map.Width, map.Height);
-                camera.Update(player.Position, map.Width, map.Height);
-            }
+            //Personagem.Update(gameTime);
+            //foreach (CollisionTiles tile in map.CollisionTile)
+            //{
+            //    Personagem.Collision(tile.Rectangle, map.Width, map.Height);
+            //}
 
 
 
