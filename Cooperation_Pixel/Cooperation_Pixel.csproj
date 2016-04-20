@@ -41,7 +41,6 @@
     <Compile Include="Chao.cs" />
     <Compile Include="Contexto.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Map.cs" />
     <Compile Include="Personagem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

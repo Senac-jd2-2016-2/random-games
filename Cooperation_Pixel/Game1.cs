@@ -10,8 +10,6 @@ namespace Cooperation_Pixel
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Map map;
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -25,7 +23,6 @@ namespace Cooperation_Pixel
             graphics.IsFullScreen = true;
             graphics.ApplyChanges();
             // TODO: Add your initialization logic here
-            map = new Map();
 
             //(x,y,largura,altura)
 
@@ -39,20 +36,6 @@ namespace Cooperation_Pixel
             // TODO: use this.Content to load your game content here
             Contexto.inicializar(Content);
 
-            Chao.Content = Content;
-
-            map.Generate(new int[,] {
-               {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-               {0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-               {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-               {0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-               {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-               {0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-               {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-               {2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-
-
-            }, 64);
         }
 
 
@@ -89,12 +72,6 @@ namespace Cooperation_Pixel
                     Contexto.Viking.moverX(-2);
             }
 
-            //Mapa
-            //Personagem.Update(gameTime);
-            //foreach (CollisionTiles tile in map.CollisionTile)
-            //{
-            //    Personagem.Collision(tile.Rectangle, map.Width, map.Height);
-            //}
 
 
 
@@ -115,7 +92,6 @@ namespace Cooperation_Pixel
 
             spriteBatch.Draw(Contexto.Viking.texture, Contexto.Viking.GetRectangle(), Color.White);
 
-            map.Draw(spriteBatch);
 
             spriteBatch.End();
 
