@@ -15,6 +15,7 @@ namespace Cooperation_Pixel
         public int x, y, altura, largura;
         public Texture2D texture;
 
+        //Criando o personagem
         public Personagem(int x1, int y1, int larg, int alt)
         {
             x = x1;
@@ -23,11 +24,13 @@ namespace Cooperation_Pixel
             largura = larg;
         }
 
+        //Position do personagem
         public Rectangle GetRectangle()
         {
             return new Rectangle(x, y,largura, altura);
         }
 
+        //Movimentação horizontal
         public void moverX(int qtdPassos)
         {
             x += qtdPassos;

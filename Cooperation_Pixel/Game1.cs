@@ -11,18 +11,21 @@ namespace Cooperation_Pixel
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        List<tile> listaTile = new List<tile>();
-        StreamReader sr;
+        //Variáveis
+        List<tile> listaTile = new List<tile>();    //Lista para armazenar os tiles
+        StreamReader sr;    //variável para ler arquivo
         int linha, coluna;
+        Texture2D chao, fundo;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
-        Texture2D chao, fundo;
 
         protected override void Initialize()
         {
+            //Colocando o game em Tela cheia
             graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
             graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
             graphics.IsFullScreen = true;
@@ -31,15 +34,16 @@ namespace Cooperation_Pixel
 
             //(x,y,largura,altura)
 
-
+            //setando o arquivo de textos
             sr = new StreamReader("arq.txt");
             string L;
             linha = 0;
-            while ((L = sr.ReadLine()) != null)
+            //Identidicando os caracteres do arquivo, setando seu tipo, sua posição e armazenando na lista
+            while ((L = sr.ReadLine()) != null) //se a linha do arquivo for diferente de NULL
             {
                 coluna = 0;
                 tile novo;
-                foreach(char item in L)
+                foreach(char item in L)   //para cada caractere da linha
                 {
                     novo = new tile();
                     if (item.Equals('0')){
@@ -68,6 +72,7 @@ namespace Cooperation_Pixel
             fundo = Content.Load<Texture2D>("tile");
             chao = Content.Load<Texture2D>("tile");
 
+            //Carregando as imagens nos itens da lista de acordo com o seu tipo
             for (int i = 0; i < listaTile.Count; i++)
             {
                 if (listaTile[i].tipo.Equals(tipoTile.fundo))
@@ -134,6 +139,7 @@ namespace Cooperation_Pixel
 
             spriteBatch.Draw(Contexto.Viking.texture, Contexto.Viking.GetRectangle(), Color.White);
 
+            //Desenhando os tiles do tipo chao
             for (int i = 0; i < listaTile.Count; i++)
             {
                 if (listaTile[i].tipo.Equals(tipoTile.chao))

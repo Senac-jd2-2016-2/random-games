@@ -15,6 +15,7 @@ namespace Cooperation_Pixel
 
         public static Texture2D background;
 
+        //Iniciando as textutas dos objetos
         public static void inicializar(ContentManager content)
         {
             Viking.texture = content.Load<Texture2D>("Viking");

@@ -21,14 +21,4 @@ namespace Cooperation_Pixel
         }
 
     }
-    class CollisionTiles : Chao
-    {
-        public CollisionTiles(int i, Rectangle newRectangle)
-        {
-            Texture = Content.Load<Texture2D>("tile");
-            this.Rectangle = new Rectangle();
-        }
-    }
-
-
 }
