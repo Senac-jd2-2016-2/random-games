@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Cooperation_Pixel
 {
@@ -9,12 +11,15 @@ namespace Cooperation_Pixel
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        List<tile> listaTile = new List<tile>();
+        StreamReader sr;
+        int linha, coluna;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
+        Texture2D chao, fundo;
 
         protected override void Initialize()
         {
@@ -26,6 +31,31 @@ namespace Cooperation_Pixel
 
             //(x,y,largura,altura)
 
+
+            sr = new StreamReader("arq.txt");
+            string L;
+            linha = 0;
+            while ((L = sr.ReadLine()) != null)
+            {
+                coluna = 0;
+                tile novo;
+                foreach(char item in L)
+                {
+                    novo = new tile();
+                    if (item.Equals('0')){
+                        novo.tipo = tipoTile.fundo;
+                    }
+                    if (item.Equals("1"))
+                    {
+                        novo.tipo = tipoTile.chao;
+                    }
+                    novo.position = new Rectangle(coluna * 80, linha * 80, 80, 80);
+                    listaTile.Add(novo);
+                    coluna++;
+                }
+                linha++;
+            }
+
             base.Initialize();
         }
 
@@ -35,6 +65,18 @@ namespace Cooperation_Pixel
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
             Contexto.inicializar(Content);
+            fundo = Content.Load<Texture2D>("tile");
+            chao = Content.Load<Texture2D>("tile");
+
+            for (int i = 0; i < listaTile.Count; i++)
+            {
+                if (listaTile[i].tipo.Equals(tipoTile.fundo))
+                {
+                    listaTile[i].img = fundo;
+                }
+                else
+                    listaTile[i].img = fundo;
+            }
 
         }
 
@@ -92,6 +134,13 @@ namespace Cooperation_Pixel
 
             spriteBatch.Draw(Contexto.Viking.texture, Contexto.Viking.GetRectangle(), Color.White);
 
+            for (int i = 0; i < listaTile.Count; i++)
+            {
+                if (listaTile[i].tipo.Equals(tipoTile.chao))
+                {
+                    spriteBatch.Draw(listaTile[i].img, listaTile[i].position, Color.White);
+                }
+            }
 
             spriteBatch.End();
 
