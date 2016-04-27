@@ -9,9 +9,9 @@ namespace Cooperation_Pixel
 {
     class Contexto
     {
-        public static Personagem Viking = new Personagem(150, 240, 80, 159);
+        public static Personagem Viking = new Personagem(0, 160, 80, 159);
 
-        public static Personagem Anao = new Personagem(200, 240, 80, 80);
+        public static Personagem Anao = new Personagem(80, 240, 80, 80);
 
         public static Texture2D background;
 
