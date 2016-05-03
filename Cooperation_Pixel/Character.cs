@@ -7,10 +7,11 @@ using System.Text;
 
 namespace Cooperation_Pixel
 {
-    public class Tile
+    public class Character
     {
         public Rectangle Position;
         public Texture2D img;
-        public TileType type;
+        public int velocity;
+        public int life;
     }
 }

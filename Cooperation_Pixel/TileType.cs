@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Cooperation_Pixel
 {
-    public enum tipoTile
+    public enum TileType
     {
-        chao,
-        fundo
+        PASSABLE,
+        NOT_PASSABLE,
     }
 }
