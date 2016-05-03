@@ -11,7 +11,7 @@ namespace Cooperation_Pixel
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        Stage1 stage1;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -25,7 +25,8 @@ namespace Cooperation_Pixel
             graphics.IsFullScreen = true;
             graphics.ApplyChanges();
             // TODO: Add your initialization logic here
-
+            stage1 = new Stage1();
+            stage1.Initialize();
             base.Initialize();
         }
         protected override void LoadContent()
@@ -33,7 +34,7 @@ namespace Cooperation_Pixel
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
-
+            stage1.LoadContent(Content);
         }
         protected override void UnloadContent()
         {
@@ -45,7 +46,7 @@ namespace Cooperation_Pixel
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             // TODO: Add your update logic here
-
+            stage1.Update(gameTime);
             base.Update(gameTime);
         }
         protected override void Draw(GameTime gameTime)
@@ -53,7 +54,7 @@ namespace Cooperation_Pixel
             GraphicsDevice.Clear(Color.CornflowerBlue);
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-
+            stage1.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }
