@@ -11,10 +11,10 @@ namespace Cooperation_Pixel
     {
         public Scenario scenario;
 
-        public void Initialize(string source)
+        public void Initialize(string source, int size)
         {
             scenario = new Scenario();
-            scenario.Initialize(source);
+            scenario.Initialize(source, size);
         }
 
         public void LoadContent(ContentManager Content, string[] value)
