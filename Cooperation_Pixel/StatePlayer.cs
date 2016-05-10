@@ -7,6 +7,7 @@ namespace Cooperation_Pixel
 {
     public enum StatePlayer
     {
+        //estados do personagem (o que o personagem está fazendo) 
         RUNRIGHT,
         RUNLEFT,
         JUMP,

@@ -7,6 +7,7 @@ namespace Cooperation_Pixel
 {
     public enum StateEnemy
     {
+        //estados do personagem (o que o personagem está fazendo) 
         WATCHING,
         ATTACKING
     }

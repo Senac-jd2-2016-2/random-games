@@ -9,6 +9,7 @@ namespace Cooperation_Pixel
 {
     public class Character
     {
+        //atributos dos personagens
         public Rectangle Position;
         public Texture2D img;
         public int velocity;

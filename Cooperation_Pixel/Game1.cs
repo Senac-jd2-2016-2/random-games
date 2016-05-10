@@ -20,8 +20,8 @@ namespace Cooperation_Pixel
         protected override void Initialize()
         {
             //Colocando o game em Tela cheia
-            graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
-            graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 600;
             graphics.IsFullScreen = true;
             graphics.ApplyChanges();
             // TODO: Add your initialization logic here

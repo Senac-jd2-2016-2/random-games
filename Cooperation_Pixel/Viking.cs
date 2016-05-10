@@ -11,10 +11,11 @@ namespace Cooperation_Pixel
 {
     public class Viking : Character
     {
-        public StatePlayer State_Viking;
+        public StatePlayer State_Viking;        //estado do personagem
 
         public void Initialize(Rectangle viking, int life, int velocity)
         {
+            //Iniciando poição e atributos do personagem
             State_Viking = StatePlayer.IDDLE;
             Position = new Rectangle(viking.X, viking.Y, viking.Width, viking.Height);
             this.life = life;
@@ -23,11 +24,13 @@ namespace Cooperation_Pixel
 
         public void LoadContent(ContentManager Content, string value)
         {
+            //carregando a imagem do personagem
             img = Content.Load<Texture2D>(value);
         }
 
         public void Update(GameTime gameTime)
         {
+            //Mudando o estado do personagem de acordo com a entrada do usuário
             if (Keyboard.GetState().IsKeyDown(Keys.D))
                 State_Viking = StatePlayer.RUNRIGHT;
             else if (Keyboard.GetState().IsKeyDown(Keys.A))
@@ -40,6 +43,7 @@ namespace Cooperation_Pixel
 
         public void Draw(SpriteBatch spritebatch)
         {
+            //desenhando personagem
             spritebatch.Draw(img, Position, Color.White);
         }
     }

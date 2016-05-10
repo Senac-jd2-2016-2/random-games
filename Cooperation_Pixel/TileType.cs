@@ -7,7 +7,7 @@ namespace Cooperation_Pixel
 {
     public enum TileType
     {
-        PASSABLE,
-        NOT_PASSABLE,
+        PASSABLE,       //Tiles que terão colisão
+        NOT_PASSABLE,   //Tiles que não terão colisão
     }
 }

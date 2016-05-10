@@ -10,33 +10,33 @@ namespace Cooperation_Pixel
 {
     public class Stage1
     {
-        public bool ativa;
-        public Control stage;
-        int qtd = 4;
-        int size = 64;
+        public bool ativa;      //indica se a fase está ativa
+        public Control stage;   //criando um controle para a fase
+        int qtd = 4;    //quantidade de inimigos na fase
+        int size = 30;      //tamanho dos tiles
 
         public void Initialize(GraphicsDeviceManager graphics)
         {
             stage = new Control();
 
             //INICIAR ANÃO
-            Rectangle posD = new Rectangle(500, 180, 80, 80);
-            int velD = 6;
+            Rectangle posD = new Rectangle(300, 170, 40, 40);
+            int velD = 4;
             int lifeD = 1;
 
             //INICIAR VIKING
-            Rectangle posV = new Rectangle(700, 100, 80, 160);
-            int velV = 3;
+            Rectangle posV = new Rectangle(220, 130, 40, 80);
+            int velV = 2;
             int lifeV = 1;
 
             //INICIAR INIMIGOS
-            string source = "fase1.txt";
-            qtd = 4;
+            string source = "fase1.txt";        //arquivo onde estará descrita a matriz da fase
+            qtd = 4;        //quantidade de inimigos
             Rectangle[] positionsE = new Rectangle[qtd];
-            positionsE[0] = new Rectangle(10, 195, 65, 65);
-            positionsE[1] = new Rectangle(1800, 450, 65, 65);
-            positionsE[2] = new Rectangle(10, 705, 65, 65);
-            positionsE[3] = new Rectangle(1800, 960, 65, 65);
+            positionsE[0] = new Rectangle(0, 175, 35, 35);
+            positionsE[1] = new Rectangle(0, 415, 35, 35);
+            positionsE[2] = new Rectangle(750, 175, 35, 35);
+            positionsE[3] = new Rectangle(750, 415, 35, 35);
 
             int[] velocityE = new int[qtd];
             velocityE[0] = 4;
@@ -49,7 +49,7 @@ namespace Cooperation_Pixel
             {
                 lifeE[i] = 2;
             }
-            //INICIAR CENARIO
+            //Chamar o método de inicialização da fase
             stage.Initialize(posD, lifeD, velD, posV, lifeV, velV, source, size, positionsE, lifeE, velocityE, qtd, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
         }
         public void Load(ContentManager Content)
@@ -66,16 +66,20 @@ namespace Cooperation_Pixel
             valuesFase[1] = "tile";
             valuesFase[2] = "BackGround";
 
+            //CARREGAR INIMIGO
             string valueEnemye = "Anao";
 
+            //chamar o método responsável por carregar os arquivos da fase
             stage.Load(Content, valueD, valueV, valuesFase, valueEnemye);
         }
         public void Update(GameTime gameTime)
         {
+            //Atualizando a fase
             stage.Update(gameTime);
         }
         public void Draw(SpriteBatch spriteBacth)
         {
+            //Desenhando a fase
             stage.Draw(spriteBacth);
         }
 
