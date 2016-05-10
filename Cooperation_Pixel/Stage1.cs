@@ -15,17 +15,17 @@ namespace Cooperation_Pixel
         int qtd = 4;
         int size = 64;
 
-        public void Initialize()
+        public void Initialize(GraphicsDeviceManager graphics)
         {
             stage = new Control();
 
             //INICIAR ANÃO
-            Rectangle posD = new Rectangle(100, 100, 80, 80);
+            Rectangle posD = new Rectangle(500, 180, 80, 80);
             int velD = 6;
             int lifeD = 1;
 
             //INICIAR VIKING
-            Rectangle posV = new Rectangle(100, 100, 80, 160);
+            Rectangle posV = new Rectangle(700, 100, 80, 160);
             int velV = 3;
             int lifeV = 1;
 
@@ -33,10 +33,10 @@ namespace Cooperation_Pixel
             string source = "fase1.txt";
             qtd = 4;
             Rectangle[] positionsE = new Rectangle[qtd];
-            positionsE[0] = new Rectangle(10, 10, 65, 65);
-            positionsE[1] = new Rectangle(90, 10, 65, 65);
-            positionsE[2] = new Rectangle(150, 10, 65, 65);
-            positionsE[3] = new Rectangle(250, 10, 65, 65);
+            positionsE[0] = new Rectangle(10, 195, 65, 65);
+            positionsE[1] = new Rectangle(1800, 450, 65, 65);
+            positionsE[2] = new Rectangle(10, 705, 65, 65);
+            positionsE[3] = new Rectangle(1800, 960, 65, 65);
 
             int[] velocityE = new int[qtd];
             velocityE[0] = 4;
@@ -50,7 +50,7 @@ namespace Cooperation_Pixel
                 lifeE[i] = 2;
             }
             //INICIAR CENARIO
-            stage.Initialize(posD, lifeD, velD, posV, lifeV, velV, source, size, positionsE, lifeE, velocityE, qtd);
+            stage.Initialize(posD, lifeD, velD, posV, lifeV, velV, source, size, positionsE, lifeE, velocityE, qtd, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
         }
         public void Load(ContentManager Content)
         {

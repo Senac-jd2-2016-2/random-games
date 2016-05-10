@@ -13,12 +13,18 @@ namespace Cooperation_Pixel
     {
         public List<Tile> list;
         public Texture2D background;
+        //public abstract Rectangle ClientBounds { get; }
         int linelist, columlist;
         StreamReader reader;
 
-        public void Initialize(string source, int size)
+
+        Rectangle back;
+
+        public void Initialize(string source, int size, int backWidth, int backHeigth)
         {
             list = new List<Tile>();
+
+            back = new Rectangle(0, 0, backWidth, backHeigth);
 
             reader = new StreamReader(source);
             string line;
@@ -61,10 +67,12 @@ namespace Cooperation_Pixel
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(background, new Vector2(0, 0), Color.White);
+
+            spriteBatch.Draw(background, back, Color.White);
             for (int i = 0; i < list.Count; i++)
             {
-                spriteBatch.Draw(list[i].img, list[i].Position, Color.White);
+                if(list[i].type == TileType.NOT_PASSABLE)
+                    spriteBatch.Draw(list[i].img, list[i].Position, Color.White);
             }
         }
 

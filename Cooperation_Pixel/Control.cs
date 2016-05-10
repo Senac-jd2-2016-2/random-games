@@ -32,10 +32,10 @@ namespace Cooperation_Pixel
             Viking.velocity = velocity;
         }
 
-        private void InitializeStage(string source, int size)
+        private void InitializeStage(string source, int size, int backWidth, int backHeigth)
         {
             stage = new Stage();
-            stage.Initialize(source, size);
+            stage.Initialize(source, size, backWidth, backHeigth);
         }
 
         private void InitializeEnemyes(Rectangle[] positions, int[]life, int[]velocity, int qtde)
@@ -50,11 +50,11 @@ namespace Cooperation_Pixel
             }
         }
 
-        public void Initialize(Rectangle positionD, int lifeD, int velocityD, Rectangle positionV, int lifeV, int velocityV, string source, int size, Rectangle[]positionE, int[] lifeE, int[] velocityE, int qtde)
+        public void Initialize(Rectangle positionD, int lifeD, int velocityD, Rectangle positionV, int lifeV, int velocityV, string source, int size, Rectangle[]positionE, int[] lifeE, int[] velocityE, int qtde, int backWidth, int backHeigth)
         {
             InitializeDwarf(positionD, lifeD, velocityD);
             InitializeViking(positionV, lifeV, velocityV);
-            InitializeStage(source, size);
+            InitializeStage(source, size, backWidth, backHeigth);
             InitializeEnemyes(positionE, lifeE, velocityE, qtde);
         }
 

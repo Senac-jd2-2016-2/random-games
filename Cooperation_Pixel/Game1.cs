@@ -26,7 +26,7 @@ namespace Cooperation_Pixel
             graphics.ApplyChanges();
             // TODO: Add your initialization logic here
             stage1 = new Stage1();
-            stage1.Initialize();
+            stage1.Initialize(graphics);
             base.Initialize();
         }
         protected override void LoadContent()
@@ -54,6 +54,7 @@ namespace Cooperation_Pixel
             GraphicsDevice.Clear(Color.CornflowerBlue);
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+            //spriteBatch.Draw(stage1.stage.stage.scenario.background, new Rectangle(0, 0, clientBounds.Width, clientBounds.Heigth), Color.White);
             stage1.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
