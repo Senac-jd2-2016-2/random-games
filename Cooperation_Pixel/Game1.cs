@@ -34,7 +34,7 @@ namespace Cooperation_Pixel
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
-            stage1.LoadContent(Content);
+            stage1.Load(Content);
         }
         protected override void UnloadContent()
         {

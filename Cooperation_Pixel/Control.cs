@@ -58,7 +58,7 @@ namespace Cooperation_Pixel
             InitializeEnemyes(positionE, lifeE, velocityE, qtde);
         }
 
-        public void LoadContent(ContentManager Content, string valueD,string valueV, string[]valuesF, string value)
+        public void Load(ContentManager Content, string valueD,string valueV, string[]valuesF, string value)
         {
             Dwarf.LoadContent(Content, valueD);
             Viking.LoadContent(Content, valueV);
