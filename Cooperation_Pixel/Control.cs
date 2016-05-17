@@ -63,7 +63,7 @@ namespace Cooperation_Pixel
             InitializeEnemyes(positionE, lifeE, velocityE, qtde);
         }
 
-        public void Load(ContentManager Content, string valueD,string valueV, string[]valuesF, string value)
+        public void Load(ContentManager Content, string[] valueD,string valueV, string[]valuesF, string value)
         {
             //carregando todos os arquivos
             Dwarf.LoadContent(Content, valueD);
@@ -84,7 +84,7 @@ namespace Cooperation_Pixel
             bool validaD, validaV;      //variáveis para detectar colisão
 
             //MOVIMENTANDO O ANÃO
-            if (Dwarf.State_Dwarf == StatePlayer.RUNLEFT)
+            if ((Dwarf.State_Dwarf == StatePlayer.RUNLEFT))
             {
                 validaD = colliderDwarf(Dwarf, stage);
                 if (!validaD)
@@ -95,6 +95,7 @@ namespace Cooperation_Pixel
                 validaD = colliderDwarf(Dwarf, stage);
                 if (!validaD)
                     Dwarf.Position.X += Dwarf.velocity;
+
             }
             //MOVIMENTANDO O VIKING
             if (Viking.State_Viking == StatePlayer.RUNLEFT)
@@ -102,13 +103,24 @@ namespace Cooperation_Pixel
                 validaV = ColliderViking(Viking, stage);
                 if (!validaV)
                     Viking.Position.X -= Viking.velocity;
+
             }
             else if (Viking.State_Viking == StatePlayer.RUNRIGHT)
             {
                 validaV = ColliderViking(Viking, stage);
                 if (!validaV)
                     Viking.Position.X += Viking.velocity;
+
             }
+
+
+            //atualizando inimigos
+            for (int i = 0; i < qtdeenemyes; i++)
+            {
+                enemyes[i].Update(gametime);
+            }
+            
+
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -39,7 +39,7 @@ namespace Cooperation_Pixel
                 steps += factor;
                 if (steps < 0)
                     factor = 1;
-                else if (steps > 5)
+                else if (steps > 15)
                     factor = -1;
                 Position.X += velocity * factor;
             }

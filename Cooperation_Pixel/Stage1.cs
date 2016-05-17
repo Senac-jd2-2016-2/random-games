@@ -55,7 +55,9 @@ namespace Cooperation_Pixel
         public void Load(ContentManager Content)
         {
             //CARREGAR ANÃO
-            string valueD = "Anao";
+            string[] valueD = new string[2];
+            valueD[0] = "Anao";
+            valueD[1] = "colid";
 
             //CARREGAR VIKING
             string valueV = "Viking";

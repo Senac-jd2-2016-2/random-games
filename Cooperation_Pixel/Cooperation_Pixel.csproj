@@ -71,6 +71,9 @@
     <Content Include="Content\background.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\colid.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\tile.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

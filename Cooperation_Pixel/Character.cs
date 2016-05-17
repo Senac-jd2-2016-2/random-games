@@ -14,5 +14,10 @@ namespace Cooperation_Pixel
         public Texture2D img;
         public int velocity;
         public int life;
+        public Rectangle position_Left;
+        public Rectangle position_Right;
+        public Rectangle position_Top;
+        public Rectangle position_Bot;
+        public Texture2D img_colid;
     }
 }
