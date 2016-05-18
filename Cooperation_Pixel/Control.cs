@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -15,6 +17,7 @@ namespace Cooperation_Pixel
         public Stage stage;
         public List<Enemy> enemyes;
         public int qtdeenemyes;
+        StreamWriter writer;
 
         private void InitializeDwarf(Rectangle position, int life, int velocity)
         {
@@ -119,8 +122,15 @@ namespace Cooperation_Pixel
             {
                 enemyes[i].Update(gametime);
             }
-            
 
+            //SAVE GAME
+            if (Keyboard.GetState().IsKeyDown(Keys.P))
+            {
+                writer = new StreamWriter("save.txt");
+                writer.Write(Dwarf.Position.X + "|" + Dwarf.Position.Y + "|" + Viking.Position.X + "|" + Viking.Position.Y);
+
+                writer.Close();
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
