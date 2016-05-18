@@ -17,6 +17,7 @@ namespace Cooperation_Pixel
         public Stage stage;
         public List<Enemy> enemyes;
         public int qtdeenemyes;
+        public Collider collider;
         StreamWriter writer;
 
         private void InitializeDwarf(Rectangle position, int life, int velocity)
@@ -66,7 +67,7 @@ namespace Cooperation_Pixel
             InitializeEnemyes(positionE, lifeE, velocityE, qtde);
         }
 
-        public void Load(ContentManager Content, string[] valueD,string valueV, string[]valuesF, string value)
+        public void Load(ContentManager Content, string[] valueD,string[] valueV, string[]valuesF, string value)
         {
             //carregando todos os arquivos
             Dwarf.LoadContent(Content, valueD);
@@ -80,6 +81,7 @@ namespace Cooperation_Pixel
 
         public void Update(GameTime gametime)
         {
+            collider = new Collider();
             //atualizando tudo
             Dwarf.Update(gametime);
             Viking.Update(gametime);
@@ -89,28 +91,28 @@ namespace Cooperation_Pixel
             //MOVIMENTANDO O ANÃO
             if ((Dwarf.State_Dwarf == StatePlayer.RUNLEFT))
             {
-                validaD = colliderDwarf(Dwarf, stage);
+                validaD = collider.colliderLeft(Dwarf, stage);
                 if (!validaD)
                     Dwarf.Position.X -= Dwarf.velocity;
             }
             else if (Dwarf.State_Dwarf == StatePlayer.RUNRIGHT)
             {
-                validaD = colliderDwarf(Dwarf, stage);
+                validaD = collider.colliderRight(Dwarf, stage);
                 if (!validaD)
                     Dwarf.Position.X += Dwarf.velocity;
-
             }
+
             //MOVIMENTANDO O VIKING
             if (Viking.State_Viking == StatePlayer.RUNLEFT)
             {
-                validaV = ColliderViking(Viking, stage);
+                validaV = collider.colliderLeft(Viking, stage);
                 if (!validaV)
                     Viking.Position.X -= Viking.velocity;
 
             }
             else if (Viking.State_Viking == StatePlayer.RUNRIGHT)
             {
-                validaV = ColliderViking(Viking, stage);
+                validaV = collider.colliderRight(Viking, stage);
                 if (!validaV)
                     Viking.Position.X += Viking.velocity;
 
@@ -143,27 +145,6 @@ namespace Cooperation_Pixel
             }
             Dwarf.Draw(spriteBatch);
             Viking.Draw(spriteBatch);
-        }
-
-        public bool colliderDwarf(Dwarf dwarf, Stage stage)
-        {
-            //detectando colisão do anão com a fase
-            for (int i = 0; i < stage.scenario.list.Count; i++)
-            {
-                if (dwarf.Position.Intersects(stage.scenario.list[i].Position) && stage.scenario.list[i].type == TileType.PASSABLE)
-                    return false;
-            }
-            return true;
-        }
-        public bool ColliderViking(Viking viking, Stage stage)
-        {
-            //detectando colisão do viking com a fase
-            for (int i = 0; i < stage.scenario.list.Count; i++)
-            {
-                if (viking.Position.Intersects(stage.scenario.list[i].Position) && stage.scenario.list[i].type == TileType.PASSABLE)
-                    return false;
-            }
-            return true;
         }
 
     }

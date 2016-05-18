@@ -19,5 +19,10 @@ namespace Cooperation_Pixel
         public Rectangle position_Top;
         public Rectangle position_Bot;
         public Texture2D img_colid;
+
+        public void Gravidade(Character character)
+        {
+            //int g = 
+        }
     }
 }

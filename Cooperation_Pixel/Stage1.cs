@@ -91,7 +91,9 @@ namespace Cooperation_Pixel
             valueD[1] = "colid";
 
             //CARREGAR VIKING
-            string valueV = "Viking";
+            string[] valueV = new string[2];
+            valueV[0] = "Viking";
+            valueV[1] = "colid";
 
             //CARREGAR CENARIO
             string[] valuesFase = new string[3];

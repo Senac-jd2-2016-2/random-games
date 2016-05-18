@@ -22,7 +22,7 @@ namespace Cooperation_Pixel
             //Colocando o game em Tela cheia
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
-            graphics.IsFullScreen = true;
+            //graphics.IsFullScreen = true;
             graphics.ApplyChanges();
             // TODO: Add your initialization logic here
             stage1 = new Stage1();
@@ -54,7 +54,6 @@ namespace Cooperation_Pixel
             GraphicsDevice.Clear(Color.CornflowerBlue);
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            //spriteBatch.Draw(stage1.stage.stage.scenario.background, new Rectangle(0, 0, clientBounds.Width, clientBounds.Heigth), Color.White);
             stage1.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);

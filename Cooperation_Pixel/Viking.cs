@@ -22,14 +22,20 @@ namespace Cooperation_Pixel
             this.velocity = velocity;
         }
 
-        public void LoadContent(ContentManager Content, string value)
+        public void LoadContent(ContentManager Content, string[] value)
         {
             //carregando a imagem do personagem
-            img = Content.Load<Texture2D>(value);
+            img = Content.Load<Texture2D>(value[0]);
+            img_colid = Content.Load<Texture2D>(value[1]);
         }
 
         public void Update(GameTime gameTime)
         {
+            //colisores
+            position_Left = new Rectangle(Position.X - (Position.Width / 7), Position.Y + (Position.Height / 3), 20, 40);
+            position_Right = new Rectangle(Position.X + (Position.Width / 2), Position.Y + (Position.Height / 3), 20, 40);
+            position_Bot = new Rectangle(Position.X + (Position.Width / 3), Position.Y + (Position.Height) - position_Bot.Height, 20, 20);
+            position_Top = new Rectangle((Position.X + Position.Width / 3), Position.Y, 20, 20);
             //Mudando o estado do personagem de acordo com a entrada do usuário
             if (Keyboard.GetState().IsKeyDown(Keys.D))
                 State_Viking = StatePlayer.RUNRIGHT;
@@ -45,6 +51,10 @@ namespace Cooperation_Pixel
         {
             //desenhando personagem
             spritebatch.Draw(img, Position, Color.White);
+            //spritebatch.Draw(img_colid, position_Left, Color.White);
+            //spritebatch.Draw(img_colid, position_Right, Color.White);
+            //spritebatch.Draw(img_colid, position_Bot, Color.White);
+            //spritebatch.Draw(img_colid, position_Top, Color.White);
         }
     }
 }

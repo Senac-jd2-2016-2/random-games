@@ -74,6 +74,7 @@ namespace Cooperation_Pixel
                 if(list[i].type == TileType.NOT_PASSABLE)
                     spriteBatch.Draw(list[i].img, list[i].Position, Color.White);
             }
+            
         }
 
     }
