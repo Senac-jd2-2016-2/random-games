@@ -51,6 +51,7 @@
     <Compile Include="Stage1.cs" />
     <Compile Include="StateEnemy.cs" />
     <Compile Include="StatePlayer.cs" />
+    <Compile Include="Teste.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="TileType.cs" />
     <Compile Include="Viking.cs" />

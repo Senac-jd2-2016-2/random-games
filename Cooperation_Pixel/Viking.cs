@@ -32,8 +32,8 @@ namespace Cooperation_Pixel
         public void Update(GameTime gameTime)
         {
             //colisores
-            position_Left = new Rectangle(Position.X - (Position.Width / 7), Position.Y + (Position.Height / 3), 20, 40);
-            position_Right = new Rectangle(Position.X + (Position.Width / 2), Position.Y + (Position.Height / 3), 20, 40);
+            position_Left = new Rectangle(Position.X - (Position.Width / 7), Position.Y + (Position.Height / 3), 20, 50);
+            position_Right = new Rectangle(Position.X + (Position.Width / 2), Position.Y + (Position.Height / 3), 20, 50);
             position_Bot = new Rectangle(Position.X + (Position.Width / 3), Position.Y + (Position.Height) - position_Bot.Height, 20, 20);
             position_Top = new Rectangle((Position.X + Position.Width / 3), Position.Y, 20, 20);
             //Mudando o estado do personagem de acordo com a entrada do usuário
