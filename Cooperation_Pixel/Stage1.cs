@@ -12,7 +12,7 @@ namespace Cooperation_Pixel
     public class Stage1
     {
         public bool ativa;      //indica se a fase está ativa
-        public Control stage;   //criando um controle para a fase
+        public Control controlador;   //criando um controle para a fase
         int qtd = 4;    //quantidade de inimigos na fase
         int size = 30;      //tamanho dos tiles
 
@@ -24,7 +24,7 @@ namespace Cooperation_Pixel
         int[] aux;
         public void Initialize(GraphicsDeviceManager graphics)
         {
-            stage = new Control();
+            controlador = new Control();
             //positions = new List<Vector2>();
             Rectangle posD;
             Rectangle posV;
@@ -55,10 +55,11 @@ namespace Cooperation_Pixel
             //Anão
             int velD = 4;
             int lifeD = 1;
-
+            int saltoD = 4;
             //Viking
             int velV = 2;
             int lifeV = 1;
+            int saltoV = 2;
 
             //INICIAR INIMIGOS
             string source = "fase1.txt";        //arquivo onde estará descrita a matriz da fase
@@ -81,7 +82,7 @@ namespace Cooperation_Pixel
                 lifeE[i] = 2;
             }
             //Chamar o método de inicialização da fase
-            stage.Initialize(posD, lifeD, velD, posV, lifeV, velV, source, size, positionsE, lifeE, velocityE, qtd, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            controlador.Initialize(posD, lifeD, velD, saltoD, posV, lifeV, velV, saltoV, source, size, positionsE, lifeE, velocityE, qtd, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
         }
         public void Load(ContentManager Content)
         {
@@ -105,17 +106,17 @@ namespace Cooperation_Pixel
             string valueEnemye = "Anao";
 
             //chamar o método responsável por carregar os arquivos da fase
-            stage.Load(Content, valueD, valueV, valuesFase, valueEnemye);
+            controlador.Load(Content, valueD, valueV, valuesFase, valueEnemye);
         }
         public void Update(GameTime gameTime)
         {
             //Atualizando a fase
-            stage.Update(gameTime);
+            controlador.Update(gameTime);
         }
         public void Draw(SpriteBatch spriteBacth)
         {
             //Desenhando a fase
-            stage.Draw(spriteBacth);
+            controlador.Draw(spriteBacth);
         }
 
         

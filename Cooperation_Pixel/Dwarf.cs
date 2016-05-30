@@ -34,7 +34,7 @@ namespace Cooperation_Pixel
             //colisores
             position_Left = new Rectangle(Position.X - (Position.Width / 7), Position.Y+(Position.Height/3), 20, 20);
             position_Right = new Rectangle(Position.X + (Position.Width / 2), Position.Y + (Position.Height/3), 20, 20);
-            position_Bot = new Rectangle(Position.X + (Position.Width / 3), Position.Y + (Position.Height / 2), 20, 20);
+            position_Bot = new Rectangle(Position.X + (Position.Width / 3), Position.Y + (Position.Height), 20, 20);
             position_Top = new Rectangle((Position.X + Position.Width / 3), (Position.Y - Position.Height / 5), 20, 20);
             //mudando o estado do personagem de acordo com a entrada do usuário
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
@@ -45,6 +45,7 @@ namespace Cooperation_Pixel
                 State_Dwarf = StatePlayer.JUMP;
             else
                 State_Dwarf = StatePlayer.IDDLE;
+                    
         }
 
         public void Draw(SpriteBatch spritebatch)
@@ -53,7 +54,7 @@ namespace Cooperation_Pixel
             spritebatch.Draw(img, Position, Color.White);
             //spritebatch.Draw(img_colid, position_Left, Color.White);
             //spritebatch.Draw(img_colid, position_Right, Color.White);
-            //spritebatch.Draw(img_colid, position_Bot, Color.White);
+            spritebatch.Draw(img_colid, position_Bot, Color.White);
             //spritebatch.Draw(img_colid, position_Top, Color.White);
         }
 

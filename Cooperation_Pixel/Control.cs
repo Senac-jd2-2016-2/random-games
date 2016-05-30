@@ -20,22 +20,24 @@ namespace Cooperation_Pixel
         public Collider collider;
         StreamWriter writer;
 
-        private void InitializeDwarf(Rectangle position, int life, int velocity)
+        private void InitializeDwarf(Rectangle position, int life, int velocity, int salto)
         {
             //Iniciando o Anão
             Dwarf = new Dwarf();
             Dwarf.Position = position;
             Dwarf.life = life;
             Dwarf.velocity = velocity;
+            Dwarf.salto = salto;
         }
 
-        private void InitializeViking(Rectangle position, int life, int velocity)
+        private void InitializeViking(Rectangle position, int life, int velocity, int salto)
         {
             //Iniciando o Viking
             Viking = new Viking();
             Viking.Position = position;
             Viking.life = life;
             Viking.velocity = velocity;
+            Viking.salto = salto;
         }
 
         private void InitializeStage(string source, int size, int backWidth, int backHeigth)
@@ -58,11 +60,11 @@ namespace Cooperation_Pixel
             }
         }
 
-        public void Initialize(Rectangle positionD, int lifeD, int velocityD, Rectangle positionV, int lifeV, int velocityV, string source, int size, Rectangle[]positionE, int[] lifeE, int[] velocityE, int qtde, int backWidth, int backHeigth)
+        public void Initialize(Rectangle positionD, int lifeD, int velocityD, int saltoD, Rectangle positionV, int lifeV, int velocityV, int saltoV, string source, int size, Rectangle[]positionE, int[] lifeE, int[] velocityE, int qtde, int backWidth, int backHeigth)
         {
             //Iniciando tudo
-            InitializeDwarf(positionD, lifeD, velocityD);
-            InitializeViking(positionV, lifeV, velocityV);
+            InitializeDwarf(positionD, lifeD, velocityD, saltoD);
+            InitializeViking(positionV, lifeV, velocityV, saltoV);
             InitializeStage(source, size, backWidth, backHeigth);
             InitializeEnemyes(positionE, lifeE, velocityE, qtde);
         }
@@ -89,17 +91,31 @@ namespace Cooperation_Pixel
             bool validaD, validaV;      //variáveis para detectar colisão
 
             //MOVIMENTANDO O ANÃO
+            validaD = collider.colliderBot(Dwarf, stage);
             if ((Dwarf.State_Dwarf == StatePlayer.RUNLEFT))
             {
+                Dwarf.Gravidade(Dwarf, validaD);   //aplicando gravidade
                 validaD = collider.colliderLeft(Dwarf, stage);
                 if (!validaD)
                     Dwarf.Position.X -= Dwarf.velocity;
             }
             else if (Dwarf.State_Dwarf == StatePlayer.RUNRIGHT)
             {
+                Dwarf.Gravidade(Dwarf, validaD);    //aplicando gravidade
                 validaD = collider.colliderRight(Dwarf, stage);
                 if (!validaD)
                     Dwarf.Position.X += Dwarf.velocity;
+            }
+            else if (Dwarf.State_Dwarf == StatePlayer.JUMP)
+            {
+                validaD = collider.colliderBot(Dwarf, stage);
+                if (!validaD)
+                    Dwarf.Salto(Dwarf);  
+            }
+            else if (Dwarf.State_Dwarf == StatePlayer.IDDLE)
+            {
+                validaD = collider.colliderBot(Dwarf, stage);
+                Dwarf.Gravidade(Dwarf, validaD);      //aplicando gravidade
             }
 
             //MOVIMENTANDO O VIKING
