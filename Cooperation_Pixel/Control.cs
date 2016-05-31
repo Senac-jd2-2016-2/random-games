@@ -91,24 +91,27 @@ namespace Cooperation_Pixel
             bool validaD, validaV;      //variáveis para detectar colisão
 
             //MOVIMENTANDO O ANÃO
-            validaD = collider.colliderBot(Dwarf, stage);
+            validaD = collider.colliderBot(Dwarf, stage);       // collider Bot
+            if(!validaD)
+                Dwarf.Gravidade();   //aplicando gravidade
             if ((Dwarf.State_Dwarf == StatePlayer.RUNLEFT))
             {
-                Dwarf.Gravidade(Dwarf, validaD);   //aplicando gravidade
                 validaD = collider.colliderLeft(Dwarf, stage);
                 if (!validaD)
                     Dwarf.Position.X -= Dwarf.velocity;
             }
-            else if (Dwarf.State_Dwarf == StatePlayer.RUNRIGHT)
+            else if (Dwarf.State_Dwarf == StatePlayer.RUNRIGHT)     // collider Right
             {
-                Dwarf.Gravidade(Dwarf, validaD);    //aplicando gravidade
+                //Dwarf.Gravidade();    //aplicando gravidade
                 validaD = collider.colliderRight(Dwarf, stage);
                 if (!validaD)
                     Dwarf.Position.X += Dwarf.velocity;
             }
-            else if (Dwarf.State_Dwarf == StatePlayer.JUMP)
+            else if (Dwarf.State_Dwarf == StatePlayer.JUMP)         // collider
             {
                 validaD = collider.colliderBot(Dwarf, stage);
+                //Dwarf.Gravidade();
+                validaD = collider.colliderTop(Dwarf, stage);
                 if (!validaD)
                 {
                     Dwarf.salto = true;
@@ -118,7 +121,7 @@ namespace Cooperation_Pixel
             else if (Dwarf.State_Dwarf == StatePlayer.IDDLE)
             {
                 validaD = collider.colliderBot(Dwarf, stage);
-                Dwarf.Gravidade(Dwarf, validaD);      //aplicando gravidade
+                //Dwarf.Gravidade();      //aplicando gravidade
             }
 
             //MOVIMENTANDO O VIKING
