@@ -20,7 +20,7 @@ namespace Cooperation_Pixel
         public Collider collider;
         StreamWriter writer;
 
-        private void InitializeDwarf(Rectangle position, int life, int velocity, int salto)
+        private void InitializeDwarf(Rectangle position, int life, int velocity, bool salto)
         {
             //Iniciando o Anão
             Dwarf = new Dwarf();
@@ -30,7 +30,7 @@ namespace Cooperation_Pixel
             Dwarf.salto = salto;
         }
 
-        private void InitializeViking(Rectangle position, int life, int velocity, int salto)
+        private void InitializeViking(Rectangle position, int life, int velocity, bool salto)
         {
             //Iniciando o Viking
             Viking = new Viking();
@@ -60,7 +60,7 @@ namespace Cooperation_Pixel
             }
         }
 
-        public void Initialize(Rectangle positionD, int lifeD, int velocityD, int saltoD, Rectangle positionV, int lifeV, int velocityV, int saltoV, string source, int size, Rectangle[]positionE, int[] lifeE, int[] velocityE, int qtde, int backWidth, int backHeigth)
+        public void Initialize(Rectangle positionD, int lifeD, int velocityD, bool saltoD, Rectangle positionV, int lifeV, int velocityV, bool saltoV, string source, int size, Rectangle[] positionE, int[] lifeE, int[] velocityE, int qtde, int backWidth, int backHeigth)
         {
             //Iniciando tudo
             InitializeDwarf(positionD, lifeD, velocityD, saltoD);
@@ -110,7 +110,10 @@ namespace Cooperation_Pixel
             {
                 validaD = collider.colliderBot(Dwarf, stage);
                 if (!validaD)
-                    Dwarf.Salto(Dwarf);  
+                {
+                    Dwarf.salto = true;
+                    Dwarf.Salto(Dwarf);
+                }
             }
             else if (Dwarf.State_Dwarf == StatePlayer.IDDLE)
             {

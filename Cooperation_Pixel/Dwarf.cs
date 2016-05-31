@@ -42,9 +42,15 @@ namespace Cooperation_Pixel
             else if (Keyboard.GetState().IsKeyDown(Keys.Left))
                 State_Dwarf = StatePlayer.RUNLEFT;
             else if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            {
                 State_Dwarf = StatePlayer.JUMP;
+                salto = true;
+            }
             else
+            {
                 State_Dwarf = StatePlayer.IDDLE;
+                //salto = false;
+            }
                     
         }
 
@@ -54,7 +60,7 @@ namespace Cooperation_Pixel
             spritebatch.Draw(img, Position, Color.White);
             //spritebatch.Draw(img_colid, position_Left, Color.White);
             //spritebatch.Draw(img_colid, position_Right, Color.White);
-            spritebatch.Draw(img_colid, position_Bot, Color.White);
+            //spritebatch.Draw(img_colid, position_Bot, Color.White);
             //spritebatch.Draw(img_colid, position_Top, Color.White);
         }
 

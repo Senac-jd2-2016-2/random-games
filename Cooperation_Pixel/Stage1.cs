@@ -55,11 +55,11 @@ namespace Cooperation_Pixel
             //Anão
             int velD = 4;
             int lifeD = 1;
-            int saltoD = 4;
+            bool saltoD = false;
             //Viking
             int velV = 2;
             int lifeV = 1;
-            int saltoV = 2;
+            bool saltoV = false;
 
             //INICIAR INIMIGOS
             string source = "fase1.txt";        //arquivo onde estará descrita a matriz da fase
