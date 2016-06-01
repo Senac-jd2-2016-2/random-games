@@ -55,11 +55,9 @@ namespace Cooperation_Pixel
             //Anão
             int velD = 4;
             int lifeD = 1;
-            bool saltoD = false;
             //Viking
             int velV = 2;
             int lifeV = 1;
-            bool saltoV = false;
 
             //INICIAR INIMIGOS
             string source = "fase1.txt";        //arquivo onde estará descrita a matriz da fase
@@ -82,7 +80,7 @@ namespace Cooperation_Pixel
                 lifeE[i] = 2;
             }
             //Chamar o método de inicialização da fase
-            controlador.Initialize(posD, lifeD, velD, saltoD, posV, lifeV, velV, saltoV, source, size, positionsE, lifeE, velocityE, qtd, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            controlador.Initialize(posD, lifeD, velD, posV, lifeV, velV, source, size, positionsE, lifeE, velocityE, qtd, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
         }
         public void Load(ContentManager Content)
         {

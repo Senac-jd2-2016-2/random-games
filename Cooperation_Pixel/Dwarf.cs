@@ -20,6 +20,9 @@ namespace Cooperation_Pixel
             Position = new Rectangle(dwarf.X, dwarf.Y, dwarf.Width, dwarf.Height);
             this.life = life;
             this.velocity = velocity;
+
+            hasjumped = true;
+            position_pulo = new Vector2(Position.X, Position.Y);
         }
 
         public void LoadContent(ContentManager Content, string[] value)
@@ -31,6 +34,7 @@ namespace Cooperation_Pixel
 
         public void Update(GameTime gameTime)
         {
+            Update_Pulo(gameTime);
             //colisores
             position_Left = new Rectangle(Position.X - (Position.Width / 7), Position.Y+(Position.Height/3), 20, 20);
             position_Right = new Rectangle(Position.X + (Position.Width / 2), Position.Y + (Position.Height/3), 20, 20);
@@ -42,22 +46,18 @@ namespace Cooperation_Pixel
             else if (Keyboard.GetState().IsKeyDown(Keys.Left))
                 State_Dwarf = StatePlayer.RUNLEFT;
             else if (Keyboard.GetState().IsKeyDown(Keys.Up))
-            {
                 State_Dwarf = StatePlayer.JUMP;
-                salto = true;
-            }
             else
-            {
                 State_Dwarf = StatePlayer.IDDLE;
-                //salto = false;
-            }
-                    
+            Position.X = (int)position_pulo.X;
+            Position.Y = (int)position_pulo.Y;
+
         }
 
         public void Draw(SpriteBatch spritebatch)
         {
             //desenhando o personagem
-            spritebatch.Draw(img, Position, Color.White);
+            spritebatch.Draw(img, position_pulo, Color.White);
             //spritebatch.Draw(img_colid, position_Left, Color.White);
             //spritebatch.Draw(img_colid, position_Right, Color.White);
             //spritebatch.Draw(img_colid, position_Bot, Color.White);
