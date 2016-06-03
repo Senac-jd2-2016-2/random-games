@@ -88,30 +88,33 @@ namespace Cooperation_Pixel
 
             bool validaD, validaV;      //variáveis para detectar colisão
 
+            validaD = collider.colliderBot(Dwarf, stage);
+            if (!validaD)
+                Dwarf.Gravidade();
+
             //MOVIMENTANDO O ANÃO
             if ((Dwarf.State_Dwarf == StatePlayer.RUNLEFT))     //Movimentado para esquerda
             {
                 validaD = collider.colliderLeft(Dwarf, stage);
-                if (!validaD)
-                    Dwarf.Update_Pulo(gametime); //Dwarf.Position.X -= Dwarf.velocity;
+                Dwarf.Update_Movimento(gametime, validaD);
             }
             else if (Dwarf.State_Dwarf == StatePlayer.RUNRIGHT)     //Movimentado para direita
             {
-                validaD = collider.colliderRight(Dwarf, stage);
-                if (!validaD)
-                    Dwarf.Update_Pulo(gametime); //Dwarf.Position.X += Dwarf.velocity;
+                validaD = collider.colliderBot(Dwarf, stage);
+                Dwarf.Update_Movimento(gametime, validaD);
             }
             else if (Dwarf.State_Dwarf == StatePlayer.JUMP)         //Salto do anão
             {
                 validaD = collider.colliderTop(Dwarf, stage);
                 if (!validaD)
-                {
-                    Dwarf.Update_Pulo(gametime);
-                }
+                    Dwarf.Update_Movimento(gametime, validaD);
+
             }
             else if (Dwarf.State_Dwarf == StatePlayer.IDDLE)        //Anão parado
             {
-                Dwarf.Update_Pulo(gametime);
+                validaD = collider.colliderBot(Dwarf, stage);
+                if(!validaD)
+                    Dwarf.Update_Movimento(gametime, validaD);
             }
 
             //MOVIMENTANDO O VIKING

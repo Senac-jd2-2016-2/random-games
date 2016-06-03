@@ -26,7 +26,7 @@ namespace Cooperation_Pixel
         public Vector2 position_pulo;
         public Vector2 velocity_pulo;
 
-        public void Update_Pulo(GameTime gametime)
+        public void Update_Movimento(GameTime gametime, bool collider)
         {
             position_pulo += velocity_pulo;
 
@@ -50,11 +50,17 @@ namespace Cooperation_Pixel
                 velocity_pulo.Y += 0.15f * i;
             }
 
-            if (position_pulo.Y + img.Height >= 450)
+            if (collider == true)//(position_pulo.Y + img.Height >= 210)
                 hasjumped = false;
 
             if (hasjumped == false)
                 velocity_pulo.Y = 0f;
+        }
+
+        public void Gravidade()
+        {
+            position_pulo.Y++;
+            Position.Y++;
         }
 
 

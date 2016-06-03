@@ -22,7 +22,7 @@ namespace Cooperation_Pixel
             this.velocity = velocity;
 
             hasjumped = true;
-            position_pulo = new Vector2(Position.X, Position.Y);
+            position_pulo = new Vector2(636, 170);
         }
 
         public void LoadContent(ContentManager Content, string[] value)
@@ -34,12 +34,12 @@ namespace Cooperation_Pixel
 
         public void Update(GameTime gameTime)
         {
-            Update_Pulo(gameTime);
             //colisores
             position_Left = new Rectangle(Position.X - (Position.Width / 7), Position.Y+(Position.Height/3), 20, 20);
             position_Right = new Rectangle(Position.X + (Position.Width / 2), Position.Y + (Position.Height/3), 20, 20);
             position_Bot = new Rectangle(Position.X + (Position.Width / 3), Position.Y + (Position.Height), 20, 20);
             position_Top = new Rectangle((Position.X + Position.Width / 3), (Position.Y - Position.Height / 5), 20, 20);
+
             //mudando o estado do personagem de acordo com a entrada do usuário
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
                 State_Dwarf = StatePlayer.RUNRIGHT;
@@ -49,15 +49,15 @@ namespace Cooperation_Pixel
                 State_Dwarf = StatePlayer.JUMP;
             else
                 State_Dwarf = StatePlayer.IDDLE;
-            Position.X = (int)position_pulo.X;
-            Position.Y = (int)position_pulo.Y;
 
+            //atualizando posição do Anão
+            Position = new Rectangle((int)position_pulo.X, (int)position_pulo.Y, Position.Width, Position.Height);
         }
 
         public void Draw(SpriteBatch spritebatch)
         {
             //desenhando o personagem
-            spritebatch.Draw(img, position_pulo, Color.White);
+            spritebatch.Draw(img, Position, Color.White);
             //spritebatch.Draw(img_colid, position_Left, Color.White);
             //spritebatch.Draw(img_colid, position_Right, Color.White);
             //spritebatch.Draw(img_colid, position_Bot, Color.White);
