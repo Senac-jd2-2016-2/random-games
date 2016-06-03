@@ -51,6 +51,7 @@ namespace Cooperation_Pixel
                 State_Dwarf = StatePlayer.IDDLE;
 
             //atualizando posição do Anão
+            //fadsf
             Position = new Rectangle((int)position_pulo.X, (int)position_pulo.Y, Position.Width, Position.Height);
         }
 
