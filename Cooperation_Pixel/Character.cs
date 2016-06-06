@@ -34,8 +34,10 @@ namespace Cooperation_Pixel
                 velocity_pulo.X = 3f;
             else if (Keyboard.GetState().IsKeyDown(Keys.Left))
                 velocity_pulo.X = -3f;
-            else
+            else if (Keyboard.GetState().IsKeyDown(Keys.Left))
                 velocity_pulo.X = 0f;
+            else
+                velocity_pulo.X = 0f;    
 
             if (Keyboard.GetState().IsKeyDown(Keys.Up) && hasjumped == false)
             {
@@ -46,21 +48,25 @@ namespace Cooperation_Pixel
 
             if (hasjumped == true)
             {
-                float i = 1;
-                velocity_pulo.Y += 0.15f * i;
+                int i = 1;
+                velocity_pulo.Y += 0.10f * i;
             }
 
-            if (collider == true)//(position_pulo.Y + img.Height >= 210)
+            if (collider == true)
+            {
                 hasjumped = false;
+            }
 
             if (hasjumped == false)
+            {
                 velocity_pulo.Y = 0f;
+            }
         }
 
         public void Gravidade()
         {
-            position_pulo.Y++;
-            Position.Y++;
+            position_pulo.Y ++;
+            Position.Y ++;
         }
 
 

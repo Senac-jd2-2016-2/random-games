@@ -18,7 +18,7 @@ namespace Cooperation_Pixel
         public List<Enemy> enemyes;
         public int qtdeenemyes;
         public Collider collider;
-        StreamWriter writer;
+        //StreamWriter writer;
 
         private void InitializeDwarf(Rectangle position, int life, int velocity)
         {
@@ -88,34 +88,49 @@ namespace Cooperation_Pixel
 
             bool validaD, validaV;      //variáveis para detectar colisão
 
+            //Movimentando o anão apenas dentro dos limites da tela
+            if (Dwarf.Position.X > 760)
+                Dwarf.Position.X = 760;
+            if(Dwarf.Position.X < 0)
+                Dwarf.Position.X = 0;
+            if (Dwarf.Position.Y > 600)
+                Dwarf.Position.Y = 600;
+
+
             validaD = collider.colliderBot(Dwarf, stage);
-            if (!validaD)
+            if (!validaD)       //aplicando gravidade
                 Dwarf.Gravidade();
 
             //MOVIMENTANDO O ANÃO
-            if ((Dwarf.State_Dwarf == StatePlayer.RUNLEFT))     //Movimentado para esquerda
-            {
-                validaD = collider.colliderLeft(Dwarf, stage);
-                Dwarf.Update_Movimento(gametime, validaD);
-            }
-            else if (Dwarf.State_Dwarf == StatePlayer.RUNRIGHT)     //Movimentado para direita
+            if (Dwarf.State_Dwarf == StatePlayer.RUNLEFT)     //Movimentado para esquerda
             {
                 validaD = collider.colliderBot(Dwarf, stage);
-                Dwarf.Update_Movimento(gametime, validaD);
+                //if(!validaD)
+                    Dwarf.Update_Movimento(gametime, validaD);
+                    
             }
-            else if (Dwarf.State_Dwarf == StatePlayer.JUMP)         //Salto do anão
+            else if (Dwarf.State_Dwarf == StatePlayer.RUNRIGHT)      //Movimentado para direita
             {
+                validaD = collider.colliderBot(Dwarf, stage);
+                //if (!validaD)
+                    Dwarf.Update_Movimento(gametime, validaD);
+            }
+            else if (Dwarf.State_Dwarf == StatePlayer.JUMP)          //Salto do anão
+            {
+                Dwarf.hasjumped = true;
                 validaD = collider.colliderTop(Dwarf, stage);
-                if (!validaD)
+                //if (!validaD)
                     Dwarf.Update_Movimento(gametime, validaD);
 
             }
-            else if (Dwarf.State_Dwarf == StatePlayer.IDDLE)        //Anão parado
+            if (Dwarf.State_Dwarf == StatePlayer.IDDLE)        //Anão parado
             {
                 validaD = collider.colliderBot(Dwarf, stage);
                 if(!validaD)
-                    Dwarf.Update_Movimento(gametime, validaD);
+                    Dwarf.Gravidade();
             }
+
+
 
             //MOVIMENTANDO O VIKING
             if (Viking.State_Viking == StatePlayer.RUNLEFT)
@@ -140,14 +155,14 @@ namespace Cooperation_Pixel
                 enemyes[i].Update(gametime);
             }
 
-            //SAVE GAME
-            if (Keyboard.GetState().IsKeyDown(Keys.P))
-            {
-                writer = new StreamWriter("save.txt");
-                writer.Write(Dwarf.Position.X + "|" + Dwarf.Position.Y + "|" + Viking.Position.X + "|" + Viking.Position.Y);
+            ////SAVE GAME
+            //if (Keyboard.GetState().IsKeyDown(Keys.P))
+            //{
+            //    writer = new StreamWriter("save.txt");
+            //    writer.Write(Dwarf.Position.X + "|" + Dwarf.Position.Y + "|" + Viking.Position.X + "|" + Viking.Position.Y);
 
-                writer.Close();
-            }
+            //    writer.Close();
+            //}
         }
 
         public void Draw(SpriteBatch spriteBatch)
