@@ -96,43 +96,48 @@ namespace Cooperation_Pixel
             if (Dwarf.Position.Y > 600)
                 Dwarf.Position.Y = 600;
 
-
+            //aplicando gravidade
             validaD = collider.colliderBot(Dwarf, stage);
-            if (!validaD)       //aplicando gravidade
+            if (!validaD)       
                 Dwarf.Gravidade();
 
             //MOVIMENTANDO O ANÃO
-            if (Dwarf.State_Dwarf == StatePlayer.RUNLEFT)     //Movimentado para esquerda
-            {
-                validaD = collider.colliderBot(Dwarf, stage);
-                //if(!validaD)
-                    Dwarf.Update_Movimento(gametime, validaD);
-                    
-            }
-            else if (Dwarf.State_Dwarf == StatePlayer.RUNRIGHT)      //Movimentado para direita
+            //Movimentado para esquerda
+            if (Dwarf.State_Dwarf == StatePlayer.RUNLEFT)     
             {
                 validaD = collider.colliderBot(Dwarf, stage);
                 //if (!validaD)
-                    Dwarf.Update_Movimento(gametime, validaD);
+                Dwarf.Update_Movimento(gametime, validaD);
+                    
             }
-            else if (Dwarf.State_Dwarf == StatePlayer.JUMP)          //Salto do anão
+            //Movimentado para direita
+            else if (Dwarf.State_Dwarf == StatePlayer.RUNRIGHT)      
+            {
+                validaD = collider.colliderBot(Dwarf, stage);
+                //if (!validaD)
+                Dwarf.Update_Movimento(gametime, validaD);
+            }
+            //Salto do anão
+            else if (Dwarf.State_Dwarf == StatePlayer.JUMP)          
             {
                 Dwarf.hasjumped = true;
                 validaD = collider.colliderTop(Dwarf, stage);
-                //if (!validaD)
+                if (!validaD)
                     Dwarf.Update_Movimento(gametime, validaD);
-
             }
-            if (Dwarf.State_Dwarf == StatePlayer.IDDLE)        //Anão parado
+            //Anão parado
+            if (Dwarf.State_Dwarf == StatePlayer.IDDLE)        
             {
                 validaD = collider.colliderBot(Dwarf, stage);
                 if(!validaD)
                     Dwarf.Gravidade();
             }
 
-
-
             //MOVIMENTANDO O VIKING
+            validaV = collider.colliderBot(Viking, stage);
+            if (!validaV)       //aplicando gravidade
+                Viking.Gravidade();
+
             if (Viking.State_Viking == StatePlayer.RUNLEFT)
             {
                 validaV = collider.colliderLeft(Viking, stage);
@@ -145,8 +150,14 @@ namespace Cooperation_Pixel
                 validaV = collider.colliderRight(Viking, stage);
                 if (!validaV)
                     Viking.Position.X += Viking.velocity;
-
             }
+            if (Viking.State_Viking == StatePlayer.IDDLE)        //Viking parado
+            {
+                validaV = collider.colliderBot(Viking, stage);
+                if (!validaV)
+                    Viking.Gravidade();
+            }
+
 
 
             //atualizando inimigos
@@ -169,10 +180,10 @@ namespace Cooperation_Pixel
         {
             //desenhando tudo
             stage.Draw(spriteBatch);
-            for (int i = 0; i < qtdeenemyes; i++)
-            {
-                enemyes[i].Draw(spriteBatch);
-            }
+            //for (int i = 0; i < qtdeenemyes; i++)
+            //{
+            //    enemyes[i].Draw(spriteBatch);
+            //}
             Dwarf.Draw(spriteBatch);
             Viking.Draw(spriteBatch);
         }
