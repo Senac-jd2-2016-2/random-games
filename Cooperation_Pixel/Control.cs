@@ -95,11 +95,22 @@ namespace Cooperation_Pixel
                 Dwarf.Position.X = 0;
             if (Dwarf.Position.Y > 600)
                 Dwarf.Position.Y = 600;
+            //Movimentando o viking apenas dentro dos limites da tela
+            if (Viking.Position.X > 760)
+                Viking.Position.X = 760;
+            if (Viking.Position.X < 0)
+                Viking.Position.X = 0;
+            if (Viking.Position.Y > 600)
+                Viking.Position.Y = 600;
 
             //aplicando gravidade
             validaD = collider.colliderBot(Dwarf, stage);
             if (!validaD)       
                 Dwarf.Gravidade();
+            //aplicando gravidade
+            validaV = collider.colliderBot(Viking, stage);
+            if (!validaV)
+                Viking.Gravidade();
 
             //MOVIMENTANDO O ANÃO
             //Movimentado para esquerda
@@ -107,7 +118,7 @@ namespace Cooperation_Pixel
             {
                 validaD = collider.colliderBot(Dwarf, stage);
                 //if (!validaD)
-                Dwarf.Update_Movimento(gametime, validaD);
+                Dwarf.Update_MovimentoD(gametime, validaD);
                     
             }
             //Movimentado para direita
@@ -115,7 +126,7 @@ namespace Cooperation_Pixel
             {
                 validaD = collider.colliderBot(Dwarf, stage);
                 //if (!validaD)
-                Dwarf.Update_Movimento(gametime, validaD);
+                Dwarf.Update_MovimentoD(gametime, validaD);
             }
             //Salto do anão
             else if (Dwarf.State_Dwarf == StatePlayer.JUMP)          
@@ -123,7 +134,7 @@ namespace Cooperation_Pixel
                 Dwarf.hasjumped = true;
                 validaD = collider.colliderTop(Dwarf, stage);
                 if (!validaD)
-                    Dwarf.Update_Movimento(gametime, validaD);
+                    Dwarf.Update_MovimentoD(gametime, validaD);
             }
             //Anão parado
             if (Dwarf.State_Dwarf == StatePlayer.IDDLE)        
@@ -134,24 +145,30 @@ namespace Cooperation_Pixel
             }
 
             //MOVIMENTANDO O VIKING
-            validaV = collider.colliderBot(Viking, stage);
-            if (!validaV)       //aplicando gravidade
-                Viking.Gravidade();
-
+            //Movimentado para esquerda
             if (Viking.State_Viking == StatePlayer.RUNLEFT)
             {
-                validaV = collider.colliderLeft(Viking, stage);
-                if (!validaV)
-                    Viking.Position.X -= Viking.velocity;
-
+                validaV = collider.colliderBot(Viking, stage);
+                //if (!validaD)
+                    Viking.Update_MovimentoV(validaV);
             }
+            //Movimentado para direita
             else if (Viking.State_Viking == StatePlayer.RUNRIGHT)
             {
-                validaV = collider.colliderRight(Viking, stage);
-                if (!validaV)
-                    Viking.Position.X += Viking.velocity;
+                validaV = collider.colliderBot(Viking, stage);
+                //if (!validaD)
+                Viking.Update_MovimentoV(validaV);
             }
-            if (Viking.State_Viking == StatePlayer.IDDLE)        //Viking parado
+            //Salto do anão
+            else if (Viking.State_Viking == StatePlayer.JUMP)
+            {
+                Viking.hasjumped = true;
+                validaV = collider.colliderTop(Viking, stage);
+                if (!validaV)
+                    Viking.Update_MovimentoV(validaV);
+            }
+            //Anão parado
+            if (Viking.State_Viking == StatePlayer.IDDLE)
             {
                 validaV = collider.colliderBot(Viking, stage);
                 if (!validaV)

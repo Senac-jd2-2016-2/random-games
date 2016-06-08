@@ -46,11 +46,11 @@ namespace Cooperation_Pixel
 
             //INICIAR ANÃO
             //posD = new Rectangle(aux[0], aux[1], 40, 40);
-            posD = new Rectangle(636, 170, 40, 40);
+            posD = new Rectangle(636, 170, 35, 35);
 
             //INICIAR VIKING
             //posV = new Rectangle(aux[2], aux[3], 40, 80);
-            posV = new Rectangle(76, 130, 40, 80);
+            posV = new Rectangle(76, 130, 40, 60);
 
             //Anão
             int velD = 4;
