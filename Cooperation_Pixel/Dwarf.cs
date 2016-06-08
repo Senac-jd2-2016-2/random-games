@@ -23,6 +23,9 @@ namespace Cooperation_Pixel
 
             hasjumped = true;
             position_pulo = new Vector2(636, 170);
+
+            direcao = 1;
+            colisor = new Rectangle(Position.X + (velocity * direcao), Position.Y + Mov_Y, Position.Width, Position.Height - 10);
         }
 
         public void LoadContent(ContentManager Content, string[] value)
@@ -42,16 +45,23 @@ namespace Cooperation_Pixel
 
             //mudando o estado do personagem de acordo com a entrada do usuário
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            {
                 State_Dwarf = StatePlayer.RUNRIGHT;
+                direcao = 1;
+            }
             else if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            {
                 State_Dwarf = StatePlayer.RUNLEFT;
+                direcao = -1;
+            }
             else if (Keyboard.GetState().IsKeyDown(Keys.Up))
                 State_Dwarf = StatePlayer.JUMP;
             else
                 State_Dwarf = StatePlayer.IDDLE;
 
             //atualizando posição do Anão
-            Position = new Rectangle((int)position_pulo.X, (int)position_pulo.Y, Position.Width, Position.Height);
+            //Position = new Rectangle((int)position_pulo.X, (int)position_pulo.Y, Position.Width, Position.Height);
+            colisor = new Rectangle(Position.X + (velocity * direcao), Position.Y + Mov_Y, Position.Width, Position.Height - 10);
         }
 
         public void Draw(SpriteBatch spritebatch)

@@ -56,7 +56,7 @@ namespace Cooperation_Pixel
             int velD = 4;
             int lifeD = 1;
             //Viking
-            int velV = 2;
+            int velV = 4;
             int lifeV = 1;
 
             //INICIAR INIMIGOS

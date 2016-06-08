@@ -44,6 +44,7 @@ namespace Cooperation_Pixel
             {
                 if (Personagem.position_Bot.Intersects(stage.scenario.list[i].Position) && stage.scenario.list[i].type == TileType.PASSABLE)
                     return false;
+                
             }
             return true;
         }

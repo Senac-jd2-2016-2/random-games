@@ -23,6 +23,9 @@ namespace Cooperation_Pixel
 
             hasjumped = true;
             position_pulo = new Vector2(636, 170);
+            direcao = 1;
+
+            colisor = new Rectangle(Position.X + (velocity * direcao), Position.Y + Mov_Y, Position.Width, Position.Height - 10);
         }
 
         public void LoadContent(ContentManager Content, string[] value)
@@ -41,17 +44,23 @@ namespace Cooperation_Pixel
             position_Top = new Rectangle((Position.X + Position.Width / 3), Position.Y, 20, 20);
             //Mudando o estado do personagem de acordo com a entrada do usuário
             if (Keyboard.GetState().IsKeyDown(Keys.D))
+            {
                 State_Viking = StatePlayer.RUNRIGHT;
+                direcao = 1;
+            }
             else if (Keyboard.GetState().IsKeyDown(Keys.A))
+            {
                 State_Viking = StatePlayer.RUNLEFT;
+                direcao = -1;
+            }
             else if (Keyboard.GetState().IsKeyDown(Keys.W))
                 State_Viking = StatePlayer.JUMP;
             else
                 State_Viking = StatePlayer.IDDLE;
 
             //atualizando posição do Viking
-            Position = new Rectangle((int)position_pulo.X, (int)position_pulo.Y, Position.Width, Position.Height);
-
+            //Position = new Rectangle((int)position_pulo.X, (int)position_pulo.Y, Position.Width, Position.Height);
+            colisor = new Rectangle(Position.X + (velocity * direcao), Position.Y + Mov_Y , Position.Width, Position.Height - 10);
         }
 
         public void Draw(SpriteBatch spritebatch)
