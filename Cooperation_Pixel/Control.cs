@@ -20,9 +20,12 @@ namespace Cooperation_Pixel
         public Collider collider;
         public int gravidade = 1;
 
-        bool validaV = false;
+        //variáveis para detectar colisão
+        bool validaVV = false;
         bool validaVH = false;
-        
+        bool validaDV = false;
+        bool validaDH = false;
+
         //StreamWriter writer;
 
         private void InitializeDwarf(Rectangle position, int life, int velocity)
@@ -90,8 +93,7 @@ namespace Cooperation_Pixel
             //atualizando tudo
             Dwarf.Update(gametime);
             Viking.Update(gametime);
-
-            bool validaD;      //variáveis para detectar colisão
+            Viking.Update_MovimentoV(gametime);
 
             //Movimentando o anão apenas dentro dos limites da tela
             if (Dwarf.Position.X > 760)
@@ -109,32 +111,24 @@ namespace Cooperation_Pixel
                 Viking.Position.Y = 600;
 
             //aplicando gravidade
-            validaD = collider.colliderBot(Dwarf, stage);
-            if (!validaD)       
+            validaDV = collider.colliderBot(Dwarf, stage);
+            if (!validaDV)       
                 Dwarf.Gravidade();
-            ////aplicando gravidade
-            //validaV = collider.colliderBot(Viking, stage);
-            //if (!validaV)
-            //    Viking.Gravidade();
-
-            Viking.Update_MovimentoV(gametime);
-            //Gravidade
-
-
-            validaV = false;
+            
+            //GRAVIDADE
+            validaVV = false;
             for (int i = 0; i < stage.scenario.list.Count; i++)
             {
                 if (Viking.colisor.Intersects(stage.scenario.list[i].Position) && stage.scenario.list[i].type == TileType.NOT_PASSABLE)
                 {
-                    validaV = true;
+                    validaVV = true;
                     Viking.Position = new Rectangle(Viking.Position.X, stage.scenario.list[i].Position.Y - (stage.scenario.list[i].Position.Height / 2) - Viking.Position.Height / 2 - 5, Viking.Position.Width, Viking.Position.Height);
                     Viking.Mov_Y = 0;
                     Viking.forca_pulo = 0;
                     break;
                 }
             }
-
-            if (!validaV)
+            if (!validaVV)
             {
                 Viking.Mov_Y += gravidade - Viking.forca_pulo;
                 Viking.forca_pulo -= gravidade;
@@ -146,28 +140,28 @@ namespace Cooperation_Pixel
             //Movimentado para esquerda
             if (Dwarf.State_Dwarf == StatePlayer.RUNLEFT)     
             {
-                validaD = false;
+                validaDV = false;
                 for (int i = 0; i < stage.scenario.list.Count; i++)
                 {
                     if (Dwarf.colisor.Intersects(stage.scenario.list[i].Position) && stage.scenario.list[i].type == TileType.NOT_PASSABLE)
-                        validaD = true;
+                        validaDV = true;
                 }
                 //validaV = collider.colliderBot(Viking, stage);
-                if (validaD == false)
+                if (validaDV == false)
                     Dwarf.Position.X -= Dwarf.velocity;
                     
             }
             //Movimentado para direita
             else if (Dwarf.State_Dwarf == StatePlayer.RUNRIGHT)      
             {
-                validaD = false;
+                validaDV = false;
                 for (int i = 0; i < stage.scenario.list.Count; i++)
                 {
                     if (Dwarf.colisor.Intersects(stage.scenario.list[i].Position) && stage.scenario.list[i].type == TileType.NOT_PASSABLE)
-                        validaD = true;
+                        validaDV = true;
                 }
                 //validaV = collider.colliderBot(Viking, stage);
-                if (validaD == false)
+                if (validaDV == false)
                     Dwarf.Position.X += Dwarf.velocity;
             }
             //Salto do anão
@@ -182,8 +176,8 @@ namespace Cooperation_Pixel
             //Anão parado
             if (Dwarf.State_Dwarf == StatePlayer.IDDLE)        
             {
-                validaD = collider.colliderBot(Dwarf, stage);
-                if(!validaD)
+                validaDV = collider.colliderBot(Dwarf, stage);
+                if(!validaDV)
                     Dwarf.Gravidade();
             }
 
@@ -197,7 +191,6 @@ namespace Cooperation_Pixel
                     if (Viking.colisor.Intersects(stage.scenario.list[i].Position) && stage.scenario.list[i].type == TileType.NOT_PASSABLE)
                         validaVH = true;
                 }
-                //validaVH = collider.colliderBot(Viking, stage);
                 if (validaVH == false)
                     Viking.Position.X -= Viking.velocity;
             }
@@ -210,27 +203,14 @@ namespace Cooperation_Pixel
                     if (Viking.colisor.Intersects(stage.scenario.list[i].Position) && stage.scenario.list[i].type == TileType.NOT_PASSABLE)
                         validaVH = true;
                 }
-                //validaVH = collider.colliderBot(Viking, stage);
                 if (validaVH == false)
                     Viking.Position.X += Viking.velocity;
             }
-            //Salto do anão
+            //Salto do viking
             else if (Viking.State_Viking == StatePlayer.JUMP)
             {
                 Viking.forca_pulo = 2;
-
-                //Viking.hasjumped = true;
-                //validaV = collider.colliderTop(Viking, stage);
-                //if (!validaV)
-                //    Viking.Update_MovimentoV(validaV);
             }
-            ////Anão parado
-            //if (Viking.State_Viking == StatePlayer.IDDLE)
-            //{
-            //    validaV = collider.colliderBot(Viking, stage);
-            //    if (!validaV)
-            //        Viking.Gravidade();
-            //}
 
 
 

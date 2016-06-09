@@ -67,38 +67,6 @@ namespace Cooperation_Pixel
 
         public void Update_MovimentoV(GameTime gameTime)
         {
-            //position_pulo += velocity_pulo;
-
-            //if (Keyboard.GetState().IsKeyDown(Keys.D))
-            //    velocity_pulo.X = 3f;
-            //else if (Keyboard.GetState().IsKeyDown(Keys.A))
-            //    velocity_pulo.X = -3f;
-            //else
-            //    velocity_pulo.X = 0f;
-
-            //if (Keyboard.GetState().IsKeyDown(Keys.W) && hasjumped == false)
-            //{
-            //    position_pulo.Y -= 10f;
-            //    velocity_pulo.Y = -5f;
-            //    hasjumped = true;
-            //}
-
-            //if (hasjumped == true)
-            //{
-            //    int i = 1;
-            //    velocity_pulo.Y += 0.10f * i;
-            //}
-
-            //if (collider == true)
-            //{
-            //    hasjumped = false;
-            //}
-
-            //if (hasjumped == false)
-            //{
-            //    velocity_pulo.Y = 0f;
-            //    //Position.Y -= 5;
-            //}
             Position.Y += Mov_Y;
         }
 
