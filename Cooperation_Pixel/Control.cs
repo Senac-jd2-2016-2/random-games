@@ -21,10 +21,8 @@ namespace Cooperation_Pixel
         public int gravidade = 1;
 
         //variáveis para detectar colisão
-        bool validaVV = false;
-        bool validaVH = false;
-        bool validaDV = false;
-        bool validaDH = false;
+        bool validaV = false;
+        bool validaD = false;
 
         //StreamWriter writer;
 
@@ -93,7 +91,6 @@ namespace Cooperation_Pixel
             //atualizando tudo
             Dwarf.Update(gametime);
             Viking.Update(gametime);
-            Viking.Update_MovimentoV(gametime);
 
             //Movimentando o anão apenas dentro dos limites da tela
             if (Dwarf.Position.X > 760)
@@ -111,105 +108,57 @@ namespace Cooperation_Pixel
                 Viking.Position.Y = 600;
 
             //aplicando gravidade
-            validaDV = collider.colliderBot(Dwarf, stage);
-            if (!validaDV)       
+            validaD = collider.colliderBot(Dwarf, stage);
+            if (!validaD)
                 Dwarf.Gravidade();
-            
-            //GRAVIDADE
-            validaVV = false;
-            for (int i = 0; i < stage.scenario.list.Count; i++)
-            {
-                if (Viking.colisor.Intersects(stage.scenario.list[i].Position) && stage.scenario.list[i].type == TileType.NOT_PASSABLE)
-                {
-                    validaVV = true;
-                    Viking.Position = new Rectangle(Viking.Position.X, stage.scenario.list[i].Position.Y - (stage.scenario.list[i].Position.Height / 2) - Viking.Position.Height / 2 - 5, Viking.Position.Width, Viking.Position.Height);
-                    Viking.Mov_Y = 0;
-                    Viking.forca_pulo = 0;
-                    break;
-                }
-            }
-            if (!validaVV)
-            {
-                Viking.Mov_Y += gravidade - Viking.forca_pulo;
-                Viking.forca_pulo -= gravidade;
-                //gravidade += 1;
-
-            }
+            //aplicando gravidade
+            validaV = collider.colliderBot(Viking, stage);
+            if (!validaV)
+                Viking.Gravidade();
 
             //MOVIMENTANDO O ANÃO
             //Movimentado para esquerda
-            if (Dwarf.State_Dwarf == StatePlayer.RUNLEFT)     
+            if (Dwarf.State_Dwarf == StatePlayer.RUNLEFT)
             {
-                validaDV = false;
-                for (int i = 0; i < stage.scenario.list.Count; i++)
-                {
-                    if (Dwarf.colisor.Intersects(stage.scenario.list[i].Position) && stage.scenario.list[i].type == TileType.NOT_PASSABLE)
-                        validaDV = true;
-                }
-                //validaV = collider.colliderBot(Viking, stage);
-                if (validaDV == false)
-                    Dwarf.Position.X -= Dwarf.velocity;
-                    
+                validaD = collider.colliderBot(Dwarf, stage);
+                Dwarf.Update_MovimentoD(gametime, validaD);
+
             }
             //Movimentado para direita
-            else if (Dwarf.State_Dwarf == StatePlayer.RUNRIGHT)      
+            else if (Dwarf.State_Dwarf == StatePlayer.RUNRIGHT)
             {
-                validaDV = false;
-                for (int i = 0; i < stage.scenario.list.Count; i++)
-                {
-                    if (Dwarf.colisor.Intersects(stage.scenario.list[i].Position) && stage.scenario.list[i].type == TileType.NOT_PASSABLE)
-                        validaDV = true;
-                }
-                //validaV = collider.colliderBot(Viking, stage);
-                if (validaDV == false)
-                    Dwarf.Position.X += Dwarf.velocity;
+                validaD = collider.colliderBot(Dwarf, stage);
+                Dwarf.Update_MovimentoD(gametime, validaD);
             }
             //Salto do anão
-            else if (Dwarf.State_Dwarf == StatePlayer.JUMP)          
+            else if (Dwarf.State_Dwarf == StatePlayer.JUMP)
             {
-                
-                //Dwarf.hasjumped = true;
-                //validaD = collider.colliderTop(Dwarf, stage);
+                Dwarf.hasjumped = true;
+                validaD = collider.colliderTop(Dwarf, stage);
                 //if (!validaD)
-                //    Dwarf.Update_MovimentoD(gametime, validaD);
-            }
-            //Anão parado
-            if (Dwarf.State_Dwarf == StatePlayer.IDDLE)        
-            {
-                validaDV = collider.colliderBot(Dwarf, stage);
-                if(!validaDV)
-                    Dwarf.Gravidade();
+                    Dwarf.Update_MovimentoD(gametime, validaD);
             }
 
             //MOVIMENTANDO O VIKING
             //Movimentado para esquerda
             if (Viking.State_Viking == StatePlayer.RUNLEFT)
             {
-                validaVH = false;
-                for (int i = 0; i < stage.scenario.list.Count; i++)
-                {
-                    if (Viking.colisor.Intersects(stage.scenario.list[i].Position) && stage.scenario.list[i].type == TileType.NOT_PASSABLE)
-                        validaVH = true;
-                }
-                if (validaVH == false)
-                    Viking.Position.X -= Viking.velocity;
+                validaV = collider.colliderBot(Viking, stage);
+                Viking.Update_MovimentoV(gametime, validaV);
             }
             //Movimentado para direita
             else if (Viking.State_Viking == StatePlayer.RUNRIGHT)
             {
-                validaVH = false;
-                for (int i = 0; i < stage.scenario.list.Count; i++)
-                {
-                    if (Viking.colisor.Intersects(stage.scenario.list[i].Position) && stage.scenario.list[i].type == TileType.NOT_PASSABLE)
-                        validaVH = true;
-                }
-                if (validaVH == false)
-                    Viking.Position.X += Viking.velocity;
+                validaV = collider.colliderBot(Viking, stage);
+                Viking.Update_MovimentoV(gametime, validaV);
             }
-            //Salto do viking
+            //Salto do anão
             else if (Viking.State_Viking == StatePlayer.JUMP)
             {
-                Viking.forca_pulo = 2;
+                Viking.hasjumped = true;
+                validaV = collider.colliderTop(Viking, stage);
+                if (!validaV)
+                    Viking.Update_MovimentoV(gametime, validaV);
             }
 
 

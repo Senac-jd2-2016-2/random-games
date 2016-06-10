@@ -25,7 +25,6 @@ namespace Cooperation_Pixel
             position_pulo = new Vector2(636, 170);
 
             direcao = 1;
-            colisor = new Rectangle(Position.X + (velocity * direcao), Position.Y + Mov_Y, Position.Width, Position.Height - 10);
         }
 
         public void LoadContent(ContentManager Content, string[] value)
@@ -60,8 +59,7 @@ namespace Cooperation_Pixel
                 State_Dwarf = StatePlayer.IDDLE;
 
             //atualizando posição do Anão
-            //Position = new Rectangle((int)position_pulo.X, (int)position_pulo.Y, Position.Width, Position.Height);
-            colisor = new Rectangle(Position.X + (velocity * direcao), Position.Y + Mov_Y, Position.Width, Position.Height - 10);
+            Position = new Rectangle((int)position_pulo.X, (int)position_pulo.Y, Position.Width, Position.Height);
         }
 
         public void Draw(SpriteBatch spritebatch)
