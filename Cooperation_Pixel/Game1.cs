@@ -15,6 +15,8 @@ namespace Cooperation_Pixel
         Rectangle wallpaper;
         Texture2D img_wallpaper;
         bool fase1;
+        SpriteFont timer;
+        int contador;
 
         public Game1()
         {
@@ -31,6 +33,7 @@ namespace Cooperation_Pixel
             // TODO: Add your initialization logic here
             fase1 = false;
             wallpaper = new Rectangle(0, 0, 800, 600);
+            contador = 0;
             stage1 = new Stage1();
             stage1.Initialize(graphics);
             base.Initialize();
@@ -42,6 +45,7 @@ namespace Cooperation_Pixel
             // TODO: use this.Content to load your game content here
             stage1.Load(Content);
             img_wallpaper = Content.Load<Texture2D>("Wallpaper");
+            //timer = Content.Load<SpriteFont>("NewSpriteFont");
         }
         protected override void UnloadContent()
         {
@@ -56,8 +60,11 @@ namespace Cooperation_Pixel
             if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                 fase1 = true;
 
-            if(fase1)
+            if (fase1)
+            {
                 stage1.Update(gameTime);
+                contador += gameTime.ElapsedGameTime.Seconds;
+            }
 
             base.Update(gameTime);
         }
@@ -68,8 +75,12 @@ namespace Cooperation_Pixel
             spriteBatch.Begin();
             if (!fase1)
                 spriteBatch.Draw(img_wallpaper, wallpaper, Color.White);
-            if(fase1)
+            if (fase1)
+            {
                 stage1.Draw(spriteBatch);
+                //spriteBatch.DrawString(timer, "Time:" + contador, new Vector2(300, 10), Color.White);
+            }
+
             spriteBatch.End();
             base.Draw(gameTime);
         }
