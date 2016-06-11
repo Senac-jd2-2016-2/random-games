@@ -12,6 +12,10 @@ namespace Cooperation_Pixel
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Stage1 stage1;
+        Rectangle wallpaper;
+        Texture2D img_wallpaper;
+        bool fase1;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -25,6 +29,8 @@ namespace Cooperation_Pixel
             //graphics.IsFullScreen = true;
             graphics.ApplyChanges();
             // TODO: Add your initialization logic here
+            fase1 = false;
+            wallpaper = new Rectangle(0, 0, 800, 600);
             stage1 = new Stage1();
             stage1.Initialize(graphics);
             base.Initialize();
@@ -35,6 +41,7 @@ namespace Cooperation_Pixel
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
             stage1.Load(Content);
+            img_wallpaper = Content.Load<Texture2D>("Wallpaper");
         }
         protected override void UnloadContent()
         {
@@ -46,7 +53,12 @@ namespace Cooperation_Pixel
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             // TODO: Add your update logic here
-            stage1.Update(gameTime);
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                fase1 = true;
+
+            if(fase1)
+                stage1.Update(gameTime);
+
             base.Update(gameTime);
         }
         protected override void Draw(GameTime gameTime)
@@ -54,7 +66,10 @@ namespace Cooperation_Pixel
             GraphicsDevice.Clear(Color.CornflowerBlue);
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            stage1.Draw(spriteBatch);
+            if (!fase1)
+                spriteBatch.Draw(img_wallpaper, wallpaper, Color.White);
+            if(fase1)
+                stage1.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }
