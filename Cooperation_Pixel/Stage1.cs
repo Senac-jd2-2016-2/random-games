@@ -95,10 +95,11 @@ namespace Cooperation_Pixel
             valueV[1] = "colid";
 
             //CARREGAR CENARIO
-            string[] valuesFase = new string[3];
+            string[] valuesFase = new string[4];
             valuesFase[0] = "tile";
             valuesFase[1] = "tile";
             valuesFase[2] = "BackGround";
+            valuesFase[3] = "Gota";
 
             //CARREGAR INIMIGO
             string valueEnemye = "Anao";

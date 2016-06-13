@@ -41,6 +41,9 @@ namespace Cooperation_Pixel
                         case '1':
                             novo.type = TileType.NOT_PASSABLE;      //se o caracter for 1 é um tile do tipo não passável
                             break;
+                        case '2':
+                            novo.type = TileType.WATER;
+                            break;
                     }
                     novo.Position = new Rectangle(columlist * size, linelist * size, size, size);       //setando a posição de cada tile na tela
                     columlist++;
@@ -57,8 +60,10 @@ namespace Cooperation_Pixel
             {
                 if (list[i].type == TileType.PASSABLE)
                     list[i].img = Content.Load<Texture2D>(values[0]);
-                else
+                else if (list[i].type == TileType.NOT_PASSABLE)
                     list[i].img = Content.Load<Texture2D>(values[1]);
+                else
+                    list[i].img = Content.Load<Texture2D>(values[3]);
             }
             //carregando a img do background
             background = Content.Load<Texture2D>(values[2]);
@@ -72,6 +77,8 @@ namespace Cooperation_Pixel
             for (int i = 0; i < list.Count; i++)
             {
                 if(list[i].type == TileType.NOT_PASSABLE)
+                    spriteBatch.Draw(list[i].img, list[i].Position, Color.White);
+                else if (list[i].type == TileType.WATER)
                     spriteBatch.Draw(list[i].img, list[i].Position, Color.White);
             }
             

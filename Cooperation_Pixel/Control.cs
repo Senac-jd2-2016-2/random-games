@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -161,7 +162,14 @@ namespace Cooperation_Pixel
                     Viking.Update_MovimentoV(gametime, validaV);
             }
 
+            for (int i = 0; i < stage.scenario.list.Count; i++)
+            {
+                if (Dwarf.Position.Intersects(stage.scenario.list[i].Position) && stage.scenario.list[i].type == TileType.WATER)
+                    stage.scenario.list.RemoveAt(i);
+                if (Viking.Position.Intersects(stage.scenario.list[i].Position) && stage.scenario.list[i].type == TileType.WATER)
+                    stage.scenario.list.RemoveAt(i);
 
+            }
 
             //atualizando inimigos
             for (int i = 0; i < qtdeenemyes; i++)

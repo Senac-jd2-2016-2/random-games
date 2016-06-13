@@ -9,5 +9,6 @@ namespace Cooperation_Pixel
     {
         PASSABLE,       //Tiles que terão colisão
         NOT_PASSABLE,   //Tiles que não terão colisão
+        WATER,
     }
 }

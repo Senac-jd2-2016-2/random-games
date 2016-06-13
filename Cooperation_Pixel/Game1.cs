@@ -17,6 +17,7 @@ namespace Cooperation_Pixel
         bool fase1;
         SpriteFont timer;
         int contador;
+        int time;
 
         public Game1()
         {
@@ -34,6 +35,7 @@ namespace Cooperation_Pixel
             fase1 = false;
             wallpaper = new Rectangle(0, 0, 800, 600);
             contador = 0;
+            time = 0;
             stage1 = new Stage1();
             stage1.Initialize(graphics);
             base.Initialize();
@@ -45,11 +47,22 @@ namespace Cooperation_Pixel
             // TODO: use this.Content to load your game content here
             stage1.Load(Content);
             img_wallpaper = Content.Load<Texture2D>("Wallpaper");
-            //timer = Content.Load<SpriteFont>("NewSpriteFont");
+            timer = Content.Load<SpriteFont>("Fonte1");
         }
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+
+        }
+        public void contartempo(GameTime gameTime)
+        {
+            time += gameTime.ElapsedGameTime.Milliseconds;
+
+            if (time > 1000)
+            {
+                contador++;
+                time = 0;
+            }
 
         }
         protected override void Update(GameTime gameTime)
@@ -63,9 +76,8 @@ namespace Cooperation_Pixel
             if (fase1)
             {
                 stage1.Update(gameTime);
-                contador += gameTime.ElapsedGameTime.Seconds;
+                contartempo(gameTime);
             }
-
             base.Update(gameTime);
         }
         protected override void Draw(GameTime gameTime)
@@ -78,7 +90,7 @@ namespace Cooperation_Pixel
             if (fase1)
             {
                 stage1.Draw(spriteBatch);
-                //spriteBatch.DrawString(timer, "Time:" + contador, new Vector2(300, 10), Color.White);
+                spriteBatch.DrawString(timer, "Time:" + contador, new Vector2(350, 0), Color.White);
             }
 
             spriteBatch.End();
