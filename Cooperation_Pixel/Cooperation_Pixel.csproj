@@ -85,6 +85,9 @@
     <Content Include="Content\Gota.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\porta.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\tile.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

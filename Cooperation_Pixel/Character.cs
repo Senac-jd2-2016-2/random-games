@@ -67,9 +67,9 @@ namespace Cooperation_Pixel
             position_pulo += velocity_pulo;
 
             if (Keyboard.GetState().IsKeyDown(Keys.D))
-                velocity_pulo.X = 1f;
+                velocity_pulo.X = 2f;
             else if (Keyboard.GetState().IsKeyDown(Keys.A))
-                velocity_pulo.X = -1f;
+                velocity_pulo.X = -2f;
             else
                 velocity_pulo.X = 0f;
 

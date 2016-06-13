@@ -21,7 +21,9 @@ namespace Cooperation_Pixel
         public Collider collider;
         public int gravidade = 1;
         int contador_agua = 0;
-        SpriteFont fonte; 
+        SpriteFont fonte;
+        Texture2D img_porta;
+        Rectangle porta;
 
         //variáveis para detectar colisão
         bool validaV = false;
@@ -74,6 +76,7 @@ namespace Cooperation_Pixel
             InitializeViking(positionV, lifeV, velocityV);
             InitializeStage(source, size, backWidth, backHeigth);
             InitializeEnemyes(positionE, lifeE, velocityE, qtde);
+            porta = new Rectangle(10, 498, 50, 75);
         }
 
         public void Load(ContentManager Content, string[] valueD,string[] valueV, string[]valuesF, string value)
@@ -87,6 +90,7 @@ namespace Cooperation_Pixel
                 enemyes[i].LoadContent(Content, value);
 			}
             fonte = Content.Load<SpriteFont>("Fonte1");
+            img_porta = Content.Load<Texture2D>("porta");
         }
 
         public void Update(GameTime gametime)
@@ -206,6 +210,9 @@ namespace Cooperation_Pixel
             //    enemyes[i].Draw(spriteBatch);
             //}
             spriteBatch.DrawString(fonte, "Pontos:" + contador_agua, new Vector2(590, 0), Color.White);
+            spriteBatch.DrawString(fonte, "Fase 1", new Vector2(10, 0), Color.White);
+            //if (contador_agua >= 3)
+                spriteBatch.Draw(img_porta, porta, Color.White);
             Dwarf.Draw(spriteBatch);
             Viking.Draw(spriteBatch);
         }

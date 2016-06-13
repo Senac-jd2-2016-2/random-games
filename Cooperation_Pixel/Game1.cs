@@ -92,7 +92,7 @@ namespace Cooperation_Pixel
                 stage1.Draw(spriteBatch);
                 spriteBatch.DrawString(timer, "Time:" + contador, new Vector2(350, 0), Color.White);
             }
-
+           
             spriteBatch.End();
             base.Draw(gameTime);
         }
