@@ -20,6 +20,8 @@ namespace Cooperation_Pixel
         public int qtdeenemyes;
         public Collider collider;
         public int gravidade = 1;
+        int contador_agua = 0;
+        SpriteFont fonte; 
 
         //variáveis para detectar colisão
         bool validaV = false;
@@ -84,6 +86,7 @@ namespace Cooperation_Pixel
 			{
                 enemyes[i].LoadContent(Content, value);
 			}
+            fonte = Content.Load<SpriteFont>("Fonte1");
         }
 
         public void Update(GameTime gametime)
@@ -165,9 +168,16 @@ namespace Cooperation_Pixel
             for (int i = 0; i < stage.scenario.list.Count; i++)
             {
                 if (Dwarf.Position.Intersects(stage.scenario.list[i].Position) && stage.scenario.list[i].type == TileType.WATER)
+                {
                     stage.scenario.list.RemoveAt(i);
+                    contador_agua += 1;
+                }
+
                 if (Viking.Position.Intersects(stage.scenario.list[i].Position) && stage.scenario.list[i].type == TileType.WATER)
+                {
                     stage.scenario.list.RemoveAt(i);
+                    contador_agua += 1;
+                }
 
             }
 
@@ -195,6 +205,7 @@ namespace Cooperation_Pixel
             //{
             //    enemyes[i].Draw(spriteBatch);
             //}
+            spriteBatch.DrawString(fonte, "Pontos:" + contador_agua, new Vector2(590, 0), Color.White);
             Dwarf.Draw(spriteBatch);
             Viking.Draw(spriteBatch);
         }
