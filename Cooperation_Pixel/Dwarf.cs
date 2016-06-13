@@ -12,6 +12,23 @@ namespace Cooperation_Pixel
     public class Dwarf : Character
     {
         public StatePlayer State_Dwarf;     //estado do personagem
+        int time = 0;
+        int posicao = 0;
+        Texture2D[] img_anao;
+        SpriteEffects myEffect;
+        public void Atualizar_sprite(GameTime gameTime)
+        {
+            time += gameTime.ElapsedGameTime.Milliseconds;
+            if (time > 300)
+            {
+                posicao++;
+                if (posicao > 1)
+                {
+                    posicao = 0;
+                }
+                time = 0;
+            }
+        }
 
         public void Initialize(Rectangle dwarf, int life, int velocity)
         {
@@ -31,7 +48,10 @@ namespace Cooperation_Pixel
         {
             //carregando a imagem do personagem
             img = Content.Load<Texture2D>(value[0]);
-            img_colid = Content.Load<Texture2D>(value[1]);
+
+            img_anao = new Texture2D[2];
+            img_anao[0] = Content.Load<Texture2D>("Anão_1");
+            img_anao[1] = Content.Load<Texture2D>("Anão_2");
         }
 
         public void Update(GameTime gameTime)
@@ -47,11 +67,14 @@ namespace Cooperation_Pixel
             {
                 State_Dwarf = StatePlayer.RUNRIGHT;
                 direcao = 1;
+                Atualizar_sprite(gameTime);
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
                 State_Dwarf = StatePlayer.RUNLEFT;
                 direcao = -1;
+                Atualizar_sprite(gameTime);
+                myEffect = SpriteEffects.FlipHorizontally;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Up))
                 State_Dwarf = StatePlayer.JUMP;
@@ -65,7 +88,7 @@ namespace Cooperation_Pixel
         public void Draw(SpriteBatch spritebatch)
         {
             //desenhando o personagem
-            spritebatch.Draw(img, Position, Color.White);
+            spritebatch.Draw(img_anao[posicao], Position, Color.White);
             //spritebatch.Draw(img_colid, position_Left, Color.White);
             //spritebatch.Draw(img_colid, position_Right, Color.White);
             //spritebatch.Draw(img_colid, position_Bot, Color.White);
