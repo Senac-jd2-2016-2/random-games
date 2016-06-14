@@ -49,6 +49,7 @@
     <Compile Include="Scenario.cs" />
     <Compile Include="Stage.cs" />
     <Compile Include="Stage1.cs" />
+    <Compile Include="Stage2.cs" />
     <Compile Include="StateEnemy.cs" />
     <Compile Include="StatePlayer.cs" />
     <Compile Include="Teste.cs" />

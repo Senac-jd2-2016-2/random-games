@@ -26,6 +26,7 @@ namespace Cooperation_Pixel
         Rectangle porta;
         int time = 0;
         int posicao = 0;
+        public bool faseativa = true;
 
         //variáveis para detectar colisão
         bool validaV = false;
@@ -78,7 +79,7 @@ namespace Cooperation_Pixel
             InitializeViking(positionV, lifeV, velocityV);
             InitializeStage(source, size, backWidth, backHeigth);
             InitializeEnemyes(positionE, lifeE, velocityE, qtde);
-            porta = new Rectangle(10, 498, 50, 75);
+            porta = new Rectangle(10, 496, 50, 75);
         }
 
         public void Load(ContentManager Content, string[] valueD,string[] valueV, string[]valuesF, string value)
@@ -179,6 +180,7 @@ namespace Cooperation_Pixel
                     Viking.Update_MovimentoV(gametime, validaV);
             }
 
+            //Colisão dos personagens com o item coletável
             for (int i = 0; i < stage.scenario.list.Count; i++)
             {
                 if (Dwarf.Position.Intersects(stage.scenario.list[i].Position) && stage.scenario.list[i].type == TileType.WATER)
@@ -195,6 +197,14 @@ namespace Cooperation_Pixel
 
             }
 
+            //Colisão dos personagens com a porta
+            if ((Dwarf.Position.Intersects(porta) && (Viking.Position.Intersects(porta))) && (contador_agua >= 3))
+                faseativa = false;
+
+
+            //Animando a porta abrindo
+            Atualizar_sprite(gametime);
+
             //atualizando inimigos
             for (int i = 0; i < qtdeenemyes; i++)
             {
@@ -209,11 +219,12 @@ namespace Cooperation_Pixel
 
             //    writer.Close();
             //}
+
         }
         public void Atualizar_sprite(GameTime gameTime)
         {
             time += gameTime.ElapsedGameTime.Milliseconds;
-            if (time > 300)
+            if (time > 150)
             {
                 posicao++;
                 if (posicao > 6)
@@ -227,10 +238,10 @@ namespace Cooperation_Pixel
         {
             //desenhando tudo
             stage.Draw(spriteBatch);
-            //for (int i = 0; i < qtdeenemyes; i++)
-            //{
-            //    enemyes[i].Draw(spriteBatch);
-            //}
+            for (int i = 0; i < qtdeenemyes; i++)
+            {
+                enemyes[i].Draw(spriteBatch);
+            }
             spriteBatch.DrawString(fonte, "Pontos:" + contador_agua, new Vector2(590, 0), Color.White);
             spriteBatch.DrawString(fonte, "Fase 1", new Vector2(10, 0), Color.White);
             if (contador_agua >= 3)

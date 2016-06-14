@@ -3,25 +3,17 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 
 namespace Cooperation_Pixel
 {
-    public class Stage1
+    class Stage2
     {
         public bool ativa;      //indica se a fase está ativa
         public Control controlador;   //criando um controle para a fase
         int qtd = 4;    //quantidade de inimigos na fase
         int size = 30;      //tamanho dos tiles
-
-        // Para salvar a posição do personagem
-        //StreamReader reader;
-        //string line;
-        //string[] num;
-        //int[] aux;
-
 
         public void Initialize(GraphicsDeviceManager graphics)
         {
@@ -29,26 +21,10 @@ namespace Cooperation_Pixel
             Rectangle posD;
             Rectangle posV;
 
-            //Para salvar a posição do personagem
-            // Para salvar a posição do personagem
-            //reader = new StreamReader("save.txt");
-            //while ((line = reader.ReadLine()) != null)
-            //{
-                //num = line.Split('|');
-                //aux = new int[4];
-                //for (int i = 0; i < num.Length; i++)
-                //{
-                //    aux[i] = int.Parse(num[i]);
-                //}
-            //}
-            //reader.Close();
-
             //INICIAR ANÃO
-            //posD = new Rectangle(aux[0], aux[1], 40, 40);
             posD = new Rectangle(636, 170, 35, 35);
 
             //INICIAR VIKING
-            //posV = new Rectangle(aux[2], aux[3], 40, 80);
             posV = new Rectangle(76, 130, 40, 60);
 
             //Anão
@@ -59,25 +35,26 @@ namespace Cooperation_Pixel
             int lifeV = 1;
 
             //INICIAR INIMIGOS
-            string source = "fase1.txt";        //arquivo onde estará descrita a matriz da fase
-            qtd = 2;        //quantidade de inimigos
+            string source = "fase2.txt";        //arquivo onde estará descrita a matriz da fase
+            qtd = 4;        //quantidade de inimigos
             Rectangle[] positionsE = new Rectangle[qtd];
-            positionsE[0] = new Rectangle(400, 175, 35, 35);
-            positionsE[1] = new Rectangle(380, 535, 35, 35);
+            positionsE[0] = new Rectangle(0, 175, 35, 35);
+            positionsE[1] = new Rectangle(0, 415, 35, 35);
+            positionsE[2] = new Rectangle(750, 175, 35, 35);
+            positionsE[3] = new Rectangle(750, 415, 35, 35);
 
             int[] velocityE = new int[qtd];
-            velocityE[0] = 5;
-            velocityE[1] = 5;
+            velocityE[0] = 4;
+            velocityE[1] = 3;
+            velocityE[2] = 5;
+            velocityE[3] = 7;
 
             int[] lifeE = new int[qtd];
             for (int i = 0; i < lifeE.Length; i++)
             {
                 lifeE[i] = 2;
             }
-
-            //fase ativa 
             ativa = true;
-
             //Chamar o método de inicialização da fase
             controlador.Initialize(posD, lifeD, velD, posV, lifeV, velV, source, size, positionsE, lifeE, velocityE, qtd, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
         }
@@ -118,7 +95,5 @@ namespace Cooperation_Pixel
             //Desenhando a fase
             controlador.Draw(spriteBacth);
         }
-
-        
     }
 }
