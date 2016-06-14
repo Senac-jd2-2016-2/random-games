@@ -22,8 +22,10 @@ namespace Cooperation_Pixel
         public int gravidade = 1;
         int contador_agua = 0;
         SpriteFont fonte;
-        Texture2D img_porta;
+        Texture2D[] img_porta;
         Rectangle porta;
+        int time = 0;
+        int posicao = 0;
 
         //variáveis para detectar colisão
         bool validaV = false;
@@ -90,7 +92,15 @@ namespace Cooperation_Pixel
                 enemyes[i].LoadContent(Content, value);
 			}
             fonte = Content.Load<SpriteFont>("Fonte1");
-            img_porta = Content.Load<Texture2D>("porta");
+            img_porta = new Texture2D[7];
+            img_porta[0] = Content.Load<Texture2D>("porta-1");
+            img_porta[1] = Content.Load<Texture2D>("porta-2");
+            img_porta[2] = Content.Load<Texture2D>("porta-3");
+            img_porta[3] = Content.Load<Texture2D>("porta-4");
+            img_porta[4] = Content.Load<Texture2D>("porta-5");
+            img_porta[5] = Content.Load<Texture2D>("porta-6");
+            img_porta[6] = Content.Load<Texture2D>("porta-7");
+            
         }
 
         public void Update(GameTime gametime)
@@ -200,7 +210,19 @@ namespace Cooperation_Pixel
             //    writer.Close();
             //}
         }
-
+        public void Atualizar_sprite(GameTime gameTime)
+        {
+            time += gameTime.ElapsedGameTime.Milliseconds;
+            if (time > 300)
+            {
+                posicao++;
+                if (posicao > 6)
+                {
+                    posicao = 0;
+                }
+                time = 0;
+            }
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             //desenhando tudo
@@ -211,8 +233,13 @@ namespace Cooperation_Pixel
             //}
             spriteBatch.DrawString(fonte, "Pontos:" + contador_agua, new Vector2(590, 0), Color.White);
             spriteBatch.DrawString(fonte, "Fase 1", new Vector2(10, 0), Color.White);
-            //if (contador_agua >= 3)
-                spriteBatch.Draw(img_porta, porta, Color.White);
+            if (contador_agua >= 3)
+            {
+                spriteBatch.Draw(img_porta[posicao], porta, Color.White);
+            }
+            else
+                spriteBatch.Draw(img_porta[0], porta, Color.White);
+
             Dwarf.Draw(spriteBatch);
             Viking.Draw(spriteBatch);
         }

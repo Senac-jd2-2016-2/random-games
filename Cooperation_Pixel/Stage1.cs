@@ -15,9 +15,6 @@ namespace Cooperation_Pixel
         public Control controlador;   //criando um controle para a fase
         int qtd = 4;    //quantidade de inimigos na fase
         int size = 30;      //tamanho dos tiles
-        int time = 0;
-        int aux = 0;
-        string nome_sprite = "Anão_2";
 
         // Para salvar a posição do personagem
         //StreamReader reader;
@@ -25,22 +22,6 @@ namespace Cooperation_Pixel
         //string[] num;
         //int[] aux;
 
-        public void Atualizar_sprite(GameTime gameTime)
-        {
-            time += gameTime.ElapsedGameTime.Milliseconds;
-            if (time >= 16)
-            {
-                aux = 1;
-                time = 0;
-            }
-            if (time == 0)
-                aux = 0;
-
-            if(aux == 0)
-                nome_sprite = "Anão_1";
-            else
-                nome_sprite = "Anão_2";
-        }
 
         public void Initialize(GraphicsDeviceManager graphics)
         {
@@ -104,7 +85,7 @@ namespace Cooperation_Pixel
         {
             //CARREGAR ANÃO
             string[] valueD = new string[2];
-            valueD[0] = nome_sprite;
+            valueD[0] = "Anão_1";
             valueD[1] = "colid";
 
             //CARREGAR VIKING
@@ -120,7 +101,7 @@ namespace Cooperation_Pixel
             valuesFase[3] = "Gota";
 
             //CARREGAR INIMIGO
-            string valueEnemye = "Anao";
+            string valueEnemye = "Gota";
 
             //chamar o método responsável por carregar os arquivos da fase
             controlador.Load(Content, valueD, valueV, valuesFase, valueEnemye);
@@ -128,7 +109,6 @@ namespace Cooperation_Pixel
         public void Update(GameTime gameTime)
         {
             //Atualizando a fase
-            Atualizar_sprite(gameTime);
             controlador.Update(gameTime);
         }
         public void Draw(SpriteBatch spriteBacth)

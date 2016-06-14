@@ -16,6 +16,8 @@ namespace Cooperation_Pixel
         int posicao = 0;
         Texture2D[] img_anao;
         SpriteEffects myEffect;
+        string[] sprites;
+           
         public void Atualizar_sprite(GameTime gameTime)
         {
             time += gameTime.ElapsedGameTime.Milliseconds;
@@ -42,6 +44,10 @@ namespace Cooperation_Pixel
             position_pulo = new Vector2(636, 170);
 
             direcao = 1;
+
+            sprites = new string[2];
+            sprites[0] = "Anão_1";
+            sprites[1] = "Anão_2";
         }
 
         public void LoadContent(ContentManager Content, string[] value)
@@ -52,6 +58,7 @@ namespace Cooperation_Pixel
             img_anao = new Texture2D[2];
             img_anao[0] = Content.Load<Texture2D>("Anão_1");
             img_anao[1] = Content.Load<Texture2D>("Anão_2");
+
         }
 
         public void Update(GameTime gameTime)
@@ -75,11 +82,14 @@ namespace Cooperation_Pixel
                 direcao = -1;
                 Atualizar_sprite(gameTime);
                 myEffect = SpriteEffects.FlipHorizontally;
+                //img_anao[0] = SpriteEffects.FlipHorizontally;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Up))
                 State_Dwarf = StatePlayer.JUMP;
             else
                 State_Dwarf = StatePlayer.IDDLE;
+
+
 
             //atualizando posição do Anão
             Position = new Rectangle((int)position_pulo.X, (int)position_pulo.Y, Position.Width, Position.Height);
